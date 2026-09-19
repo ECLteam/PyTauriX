@@ -1,0 +1,8 @@
+import { pyInvoke } from "@pytaurix/api";
+
+const buffer = new ArrayBuffer(16);
+const output = await pyInvoke<null>("command", buffer, {
+  headers: {
+    foo: "bar"
+  }
+});
