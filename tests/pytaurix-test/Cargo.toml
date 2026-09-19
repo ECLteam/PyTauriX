@@ -1,0 +1,31 @@
+[package]
+name = "pytaurix-test"
+version = "0.1.0"
+edition = "2021"
+
+[[test]]
+name = "ipc"
+path = "tests/ipc.rs"
+# NOTE: Do not enable the `test` feature by default,
+# otherwise it will forcibly enable the`pytaurix-core/__test`
+# feature for the entire workspace.
+# Use `cargo test -p pytaurix-test --features="test"` instead.
+required-features = ["test"]
+
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[dependencies]
+tauri = { workspace = true, features = ["test"] }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+
+pyo3 = { workspace = true }
+pytaurix = { workspace = true, features = ["standalone", "plugin-cli", "plugin-store", "plugin-updater"] }
+pytaurix-core = { workspace = true }
+tauri-plugin-pytaurix = { workspace = true }
+
+
+[features]
+test = ["pytaurix-core/__test"]

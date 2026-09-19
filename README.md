@@ -1,195 +1,43 @@
-<!-- The content will be also use in `docs/index.md` by `pymdownx.snippets` -->
-<!-- Do not use any **relative link** and  **GitHub-specific syntax** ！-->
-<!-- Do not rename or move the file -->
+<!-- This file is the Chinese project entry and is included by docs/index.md. -->
+<!-- Use absolute links only: it is rendered by both GitHub and MkDocs. -->
 
-# PyTauri
+# PyTauriX
 
-![banner.png](https://raw.githubusercontent.com/pytauri/branding/6832e0defd4220b8a3f5c1f111bd164cee616bbe/assets/banner.png)
+PyTauriX 是独立维护的 Python Tauri 桌面应用框架。它通过 [PyO3] 将 Python
+应用、Tauri 运行时和 TypeScript 前端桥接在一起。
 
-[Tauri] bindings for Python through [Pyo3]
+## 文档与状态
 
-[Tauri]: https://github.com/tauri-apps/tauri
-[Pyo3]: https://github.com/PyO3/pyo3
+- [中文文档](https://eclteam.github.io/PyTauriX/)：项目主入口、迁移说明与发布边界。
+- [English documentation](https://eclteam.github.io/PyTauriX/en/)：完整英文说明与 API 参考。
+- [能力清单与 Alpha 门槛](https://eclteam.github.io/PyTauriX/roadmap/)
+- [从 PyTauri 0.8 迁移](https://eclteam.github.io/PyTauriX/migration-from-pytauri-0.8/)
 
----
+## 项目结构
 
-[![CI: docs]][CI: docs#link] [![msrv]][msrv#link] [![requires-python]][requires-python#link] [![Discord]][Discord#link]
+- `crates/`：Rust crate、Tauri 插件和底层绑定。
+- `python/`：Python 发行包与构建工具。
+- `docs/`：中英文文档；`docs/snippets/` 仅保存文档嵌入的示例片段。
+- `examples/`：可独立运行的应用示例。
+- `tests/`：跨 Python、Rust 与 Tauri 的集成测试。
 
-Documentation: <https://pytauri.github.io/pytauri/>
+## 开始使用
 
-Source Code: <https://github.com/pytauri/pytauri/>
+请使用 Python 3.11+ 与 Rust 1.83+。开发本仓库时，先安装锁定依赖，再运行集成测试：
 
-[CI: docs]: https://github.com/pytauri/pytauri/actions/workflows/docs.yml/badge.svg
-[CI: docs#link]: https://github.com/pytauri/pytauri/actions/workflows/docs.yml
-[Discord]: https://img.shields.io/discord/1411349756202188942?logo=discord&label=discord
-[Discord#link]: https://discord.gg/TaXhVp7Shw
-[msrv]: https://img.shields.io/crates/msrv/pytauri?logo=rust
-[msrv#link]: https://rust-lang.github.io/rfcs/2495-min-rust-version.html
-<!--
-TODO: Switch to <https://shields.io/badges/py-pi-python-version>,
-but need to add python version classifiers in `pyproject.toml` first.
-See also <https://github.com/badges/shields/issues/5551>.
--->
-[requires-python]: https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fpytauri%2Fpytauri%2Frefs%2Fheads%2Fmain%2Fpython%2Fpytauri%2Fpyproject.toml&logo=python
-[requires-python#link]: https://packaging.python.org/en/latest/specifications/core-metadata/#requires-python
+```powershell
+uv run --package pytaurix-test --no-dev cargo test -p pytaurix-test --features test --locked
+```
 
----
+低层、接近 Tauri 的接口位于 `pytaurix.raw`；Pythonic 生命周期和资源管理接口位于
+`pytaurix`；插件使用 `pytaurix.plugins.<name>` 并以 Cargo feature 与
+`AppBuilder.plugin(...)` 显式启用。
 
-This is a completely free and open-source project, but it is difficult to maintain without incentives and contributions from the community.
+## 开源与归属
 
-If you think this project is helpful, consider giving it a star [![GitHub Repo stars]][Github Repo], it would be very helpful for my work and studies. 🥺👉👈
+项目使用 Apache-2.0 许可证，并保留上游归属说明，详见
+[UPSTREAM.md](https://github.com/ECLteam/PyTauriX/blob/main/UPSTREAM.md)。
+Tauri 是 Commons Conservancy 下 Tauri Program 的商标；PyTauriX 为独立社区项目，
+并未获得 Tauri 官方背书或支持。
 
-[GitHub Repo stars]: https://img.shields.io/github/stars/pytauri/pytauri?style=social
-[Github Repo]: https://github.com/pytauri/pytauri
-
----
-
-## Features
-
-> **TL;DR**
->
-> You are hurry and just wanna see/run the demo? See [examples/tauri-app](https://github.com/pytauri/pytauri/tree/main/examples/tauri-app).
-
-[notification]: https://docs.rs/tauri-plugin-notification/latest/tauri_plugin_notification/
-
-- Need Rust compiler, but **almost don't need to write Rust code**!
-- Or use `pytauri-wheel`, **you won't need the Rust compiler, everything can be done in Python**! Check out [examples/tauri-app-wheel](https://github.com/pytauri/pytauri/tree/main/examples/tauri-app-wheel).
-- Can be integrated with `tauri-cli` to build and package standalone executables!
-    - Use `Cython` to protect your source code!
-- No IPC (inter-process communication) overhead, secure and fast, thanks to [Pyo3]!
-- Support Tauri official plugins(e.g., [notification]), and you can write your own plugins!
-
-    ![demo](https://github.com/user-attachments/assets/14ad5b51-b333-4d80-b04b-af72c4179571)
-
-- Natively support async python (`asyncio`, `trio` or `anyio`)
-- **100%** [Type Completeness](https://microsoft.github.io/pyright/#/typed-libraries?id=type-completeness)
-- Ergonomic API (and as close as possible to the Tauri Rust API)
-    - [Automatically generated TypeScript types and client for IPC](https://github.com/pytauri/pytauri/tree/main/examples/tauri-app/src/client)
-    - Python
-
-        ```python
-        import sys
-
-        from pydantic import BaseModel
-        from pytauri import (
-            AppHandle,
-            Commands,
-        )
-        from pytauri_plugins.notification import NotificationExt
-
-        commands: Commands = Commands()
-
-
-        class Person(BaseModel):
-            name: str
-
-
-        class Greeting(BaseModel):
-            message: str
-
-
-        @commands.command()
-        async def greet(body: Person, app_handle: AppHandle) -> Greeting:
-            notification_builder = NotificationExt.builder(app_handle)
-            notification_builder.show(title="Greeting", body=f"Hello, {body.name}!")
-
-            return Greeting(
-                message=f"Hello, {body.name}! You've been greeted from Python {sys.version}!"
-            )
-        ```
-
-    - Frontend
-
-        ```ts
-        import { pyInvoke } from "tauri-plugin-pytauri-api";
-        // or: `const { pyInvoke } = window.__TAURI__.pytauri;`
-
-        export interface Person {
-            name: string;
-        }
-
-        export interface Greeting {
-            message: string;
-        }
-
-        export async function greet(body: Person): Promise<Greeting> {
-            return await pyInvoke("greet", body);
-        }
-        ```
-
-- Can be integrated with [nicegui]/[gradio]/[FastAPI] to achieve a full-stack Python development experience (i.g., without `Node.js`). See [examples/nicegui-app](https://github.com/pytauri/pytauri/tree/main/examples/nicegui-app).
-
-## Release
-
-We follow [Semantic Versioning 2.0.0](https://semver.org/).
-
-Rust and its Python bindings, PyTauri core and its plugins will keep the same `MAJOR.MINOR` version number.
-
-| name | pypi | crates.io | npmjs |
-|:-------:|:----:|:---------:|:-----:|
-| 👉 **core** | - | - | - |
-| pytauri | [![pytauri-pypi-v]][pytauri-pypi] | [![pytauri-crates-v]][pytauri-crates] | |
-| pytauri-core | | [![pytauri-core-crates-v]][pytauri-core-crates] | |
-| tauri-plugin-pytauri | | [![tauri-plugin-pytauri-crates-v]][tauri-plugin-pytauri-crates] | [![tauri-plugin-pytauri-api-npm-v]][tauri-plugin-pytauri-api-npm] |
-| 👉 **wheel** | - | - | - |
-| pytauri-wheel | [![pytauri-wheel-pypi-v]][pytauri-wheel-pypi] | | |
-| 👉 **utils** | - | - | - |
-| pyo3-utils | [![pyo3-utils-pypi-v]][pyo3-utils-pypi] | [![pyo3-utils-crates-v]][pyo3-utils-crates] | |
-| codelldb | [![codelldb-pypi-v]][codelldb-pypi] | | |
-
-[pytauri-pypi-v]: https://img.shields.io/pypi/v/pytauri
-[pytauri-pypi]: https://pypi.org/project/pytauri
-[pytauri-crates-v]: https://img.shields.io/crates/v/pytauri
-[pytauri-crates]: https://crates.io/crates/pytauri
-[pytauri-core-crates-v]: https://img.shields.io/crates/v/pytauri-core
-[pytauri-core-crates]: https://crates.io/crates/pytauri-core
-[pytauri-wheel-pypi-v]: https://img.shields.io/pypi/v/pytauri-wheel
-[pytauri-wheel-pypi]: https://pypi.org/project/pytauri-wheel
-[tauri-plugin-pytauri-crates-v]: https://img.shields.io/crates/v/tauri-plugin-pytauri
-[tauri-plugin-pytauri-crates]: https://crates.io/crates/tauri-plugin-pytauri
-[tauri-plugin-pytauri-api-npm-v]:https://img.shields.io/npm/v/tauri-plugin-pytauri-api
-[tauri-plugin-pytauri-api-npm]: https://www.npmjs.com/package/tauri-plugin-pytauri-api
-[pyo3-utils-pypi-v]: https://img.shields.io/pypi/v/pyo3-utils
-[pyo3-utils-pypi]: https://pypi.org/project/pyo3-utils
-[pyo3-utils-crates-v]: https://img.shields.io/crates/v/pyo3-utils
-[pyo3-utils-crates]: https://crates.io/crates/pyo3-utils
-[codelldb-pypi-v]: https://img.shields.io/pypi/v/codelldb
-[codelldb-pypi]: https://pypi.org/project/codelldb
-
-## Philosophy
-
-### For Pythoneer
-
-I hope `PyTauri` can become an alternative to [pywebview] and [Pystray], leveraging Tauri's comprehensive features to offer Python developers a GUI framework and a batteries-included development experience similar to [electron] and [PySide].
-
-> PyTauri is inspired by [FastAPI] and [Pydantic], aiming to offer a similar development experience.
-
-### For Rustacean
-
-Through [Pyo3], I hope Rust developers can better utilize the Python ecosystem (e.g., building AI GUI applications with [PyTorch]).
-
-Although Rust's lifetime and ownership system makes Rust code safer, Python's garbage collection (GC) will make life easier. 😆
-
-[pywebview]: https://github.com/r0x0r/pywebview
-[Pystray]: https://github.com/moses-palmer/pystray
-[electron]: https://github.com/electron/electron
-[PySide]: https://wiki.qt.io/Qt_for_Python
-[FastAPI]: https://github.com/fastapi/fastapi
-[Pydantic]: https://github.com/pydantic/pydantic
-[PyTorch]: https://github.com/pytorch/pytorch
-[nicegui]: https://github.com/zauberzeug/nicegui
-[gradio]: https://github.com/gradio-app/gradio
-
-## Used By
-
-Although PyTauri is a fairly young project, a few people have used it to make cool projects:
-
-- [Digger Solo](https://solo.digger.lol/) - AI powered file manager
-
-## Credits
-
-PyTauri is a project that aims to provide Python bindings for [Tauri], a cross-platform webview GUI library. `Tauri` is a trademark of the Tauri Program within the Commons Conservancy and PyTauri is not officially endorsed or supported by them. PyTauri is an independent and community-driven effort that respects the original goals and values of Tauri. PyTauri does not claim any ownership or affiliation with the Tauri Program.
-
-## License
-
-This project is licensed under the terms of the *Apache License 2.0*.
+[PyO3]: https://github.com/PyO3/pyo3

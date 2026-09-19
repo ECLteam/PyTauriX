@@ -1,3 +1,7 @@
+// MSVC prints a successful import-library creation message when this example is
+// built as a cdylib. It is expected output, not a linker diagnostic.
+#![allow(linker_messages)]
+
 use pyo3::prelude::*;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -17,7 +21,7 @@ pub mod ext_mod {
 
     #[pymodule_init]
     fn init(module: &Bound<'_, PyModule>) -> PyResult<()> {
-        pytauri::pymodule_export(
+        pytaurix::pymodule_export(
             module,
             // i.e., `context_factory` function of python binding
             |_args, _kwargs| Ok(tauri_generate_context()),

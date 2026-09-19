@@ -4,7 +4,7 @@
 use std::{convert::Infallible, env::var, error::Error, path::PathBuf};
 
 use pyo3::wrap_pymodule;
-use pytauri::standalone::{
+use pytaurix::standalone::{
     dunce::simplified, PythonInterpreterBuilder, PythonInterpreterEnv, PythonScript,
 };
 use tauri::utils::platform::resource_dir;

@@ -2,6 +2,7 @@ use pyo3::{
     exceptions::PyValueError,
     prelude::*,
     types::{PyBytes, PyString},
+    Borrowed,
 };
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
@@ -65,9 +66,9 @@ where
     }
 
     pub fn extract<'py>(ob: &'de Bound<'py, PyAny>) -> PyResult<Self> {
-        if let Ok(v) = ob.downcast::<PyBytes>() {
+        if let Ok(v) = ob.cast::<PyBytes>() {
             Self::from_json_bytes(v)
-        } else if let Ok(v) = ob.downcast::<PyString>() {
+        } else if let Ok(v) = ob.cast::<PyString>() {
             Self::from_json_str(v)
         } else {
             Self::from_object(ob)
@@ -75,18 +76,15 @@ where
     }
 }
 
-impl<'py, T> FromPyObject<'py> for PySerde<T>
+impl<'a, 'py, T> FromPyObject<'a, 'py> for PySerde<T>
 where
     T: DeserializeOwned,
 {
-    /// TODO: We have to use [DeserializeOwned] because in `pyo3 v0.25` it cannot borrow data from the object.
-    /// We need to wait for [pyo3::conversion::FromPyObjectBound].
-    /// See: <https://github.com/PyO3/pyo3/pull/4390>.
-    ///
-    /// Use [PySerde::extract] as a workaround for now.
+    type Error = PyErr;
+
     #[inline]
-    fn extract_bound(ob: &Bound<'py, PyAny>) -> PyResult<Self> {
-        Self::extract(ob)
+    fn extract(ob: Borrowed<'a, 'py, PyAny>) -> PyResult<Self> {
+        Self::extract(&ob.to_owned())
     }
 }
 

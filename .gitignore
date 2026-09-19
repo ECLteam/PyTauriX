@@ -1,15 +1,63 @@
+# PyTauriX 通用本地构建产物。子项目的 .gitignore 只保留必要例外。
+
+# Python：解释器缓存、虚拟环境、原生扩展与打包产物
 **/__pycache__/
-
-**/node_modules/
-target/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.pyright/
+**/.hypothesis/
+**/.tox/
+**/.nox/
+**/.maturin/
+**/__pypackages__/
+**/*.egg-info/
+**/.eggs/
+**/build/
+*.py[cod]
+*.pyd
+*.so
+*.dylib
+*.dll
+*.lib
+*.exp
 .venv/
+venv/
+env/
+.python-version
 
+# Rust / Tauri：工作区编译与自动生成的配置、前端文件
+target/
+**/target/
+**/gen/
+**/frontend/
+*.pdb
+
+# Node.js：依赖、调试日志与本地构建缓存
+**/node_modules/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 测试、覆盖率与文档构建输出
 .coverage
 coverage.xml
-
-# mkdocs build
-/site/
+htmlcov/
 .cache/
+/site/
 
-# JetBrains IDE's
-.idea
+# 根目录的发布预览产物；各子包的 dist 由其自身规则管理
+/dist/
+
+# 编辑器与操作系统文件
+.idea/
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.orig

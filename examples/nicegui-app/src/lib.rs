@@ -11,7 +11,7 @@ pub mod ext_mod {
 
     #[pymodule_init]
     fn init(module: &Bound<'_, PyModule>) -> PyResult<()> {
-        pytauri::pymodule_export(
+        pytaurix::pymodule_export(
             module,
             // i.e., `context_factory` function of python binding
             |_args, _kwargs| Ok(tauri_generate_context()),

@@ -14,14 +14,14 @@ use crate::future::py::PyFuture;
 
 #[derive(Debug)]
 struct InitRustFuture {
-    pub(self) awaitable: PyObject,
-    pub(self) runner: PyObject,
+    pub(self) awaitable: Py<PyAny>,
+    pub(self) runner: Py<PyAny>,
 }
 
 #[derive(Debug)]
 struct RunningRustFuture {
     pub(self) py_future: Py<PyFuture>,
-    pub(self) cancel_handle: PyObject,
+    pub(self) cancel_handle: Py<PyAny>,
     pub(self) cancellation_required: bool,
 }
 
@@ -34,7 +34,7 @@ enum RustFutureInner {
 
 /// # NOTE
 ///
-/// When calling the [RustFuture::poll] method, it will internally call [Python::with_gil],
+/// When calling the [RustFuture::poll] method, it will internally call [Python::attach],
 /// which means it may block the Rust async runtime.
 /// Therefore, it is best to use a separate Rust async runtime to schedule this future.
 
@@ -48,7 +48,7 @@ enum RustFutureInner {
 pub struct RustFuture(RustFutureInner);
 
 impl RustFuture {
-    pub(crate) const fn new(runner: PyObject, awaitable: PyObject) -> Self {
+    pub(crate) const fn new(runner: Py<PyAny>, awaitable: Py<PyAny>) -> Self {
         let inner = RustFutureInner::Init(Some(InitRustFuture { awaitable, runner }));
         Self(inner)
     }
@@ -83,7 +83,7 @@ impl RustFuture {
     // NOTE: For developer, whatever if you need `&mut` to change this stcuture,
     // you have to use `&mut` to make sure only one thread can cancel the future at a time,
     // it's for thread-safe for python async runtime.
-    pub fn cancel(&mut self, py: Python<'_>) -> PyResult<PyObject> {
+    pub fn cancel(&mut self, py: Python<'_>) -> PyResult<Py<PyAny>> {
         match &mut self.0 {
             RustFutureInner::Running(RunningRustFuture {
                 cancel_handle,
@@ -116,7 +116,7 @@ impl Drop for RustFuture {
 }
 
 impl Future for RustFuture {
-    type Output = PyResult<PyObject>;
+    type Output = PyResult<Py<PyAny>>;
 
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let inner = &mut self.get_mut().0;
@@ -131,7 +131,7 @@ impl Future for RustFuture {
                 //
                 // But NOTE: DO NOT use any other lock in GIL, or it maybe cause deadlock;
                 // and release the GIL as soon as possible.
-                let running_rust_future = Python::with_gil(|py| {
+                let running_rust_future = Python::attach(|py| {
                     let future = PyFuture::new(awaitable, cx.waker().clone());
                     let py_future = Bound::new(py, future).expect("Failed to create Py<PyFuture>");
 
@@ -162,7 +162,7 @@ impl Future for RustFuture {
             }
             RustFutureInner::Running(running_rust_future) => {
                 let RunningRustFuture { py_future, .. } = running_rust_future;
-                let result = Python::with_gil(|py| {
+                let result = Python::attach(|py| {
                     let mut py_future = py_future.borrow_mut(py);
                     match py_future.result_as_ref() {
                         None => {
@@ -197,7 +197,7 @@ impl Drop for CancelOnDrop {
         // But `ManuallyDrop` will require `unsafe` block, i don't like any `unsafe` block.
         let rs_future = &mut self.0;
         if rs_future.is_running() && !rs_future.is_cancellation_required() {
-            Python::with_gil(|py| {
+            Python::attach(|py| {
                 let result = rs_future.cancel(py);
                 if let Err(e) = result {
                     match e.traceback(py).map(|t| t.format()) {
@@ -216,7 +216,7 @@ impl Drop for CancelOnDrop {
 }
 
 impl Future for CancelOnDrop {
-    type Output = PyResult<PyObject>;
+    type Output = PyResult<Py<PyAny>>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         pin!(&mut self.0).poll(&mut Context::from_waker(cx.waker()))

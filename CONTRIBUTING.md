@@ -12,14 +12,14 @@ Make sure you have installed `Rust`, `Python`, `uv`, `Node.js`, `pnpm`, `tauri-c
 
 Also, you need `bash`. If you are on Windows, you can use [Git for Windows](https://gitforwindows.org/).
 
-Fork the pytauri repository on GitHub.
+Fork the [PyTauriX repository](https://github.com/ECLteam/PyTauriX) on GitHub.
 
 ```bash
 #!/bin/bash
 
 # clone your fork locally
-git clone git@github.com:your_name_here/pytauri.git
-cd pytauri
+git clone git@github.com:your_name_here/PyTauriX.git
+cd PyTauriX
 # create a branch for local development
 git checkout -b branch-name
 
@@ -72,7 +72,7 @@ We use [pytest](https://docs.pytest.org/en/stable/) and `cargo test` to test our
 
 We use [mkdocs](https://www.mkdocs.org), [mkdocs-material](https://squidfunk.github.io/mkdocs-material), [mkdocstrings](https://mkdocstrings.github.io) and [mike](https://github.com/jimporter/mike) to build our documentation.
 
-The documentation source code is in `docs/`, `docs_src/`, `mkdocs.yml`, and `utils/` (check `mkdocs.yml` to find others).
+The documentation source code is in `docs/`, `docs/snippets/`, `mkdocs.yml`, and `utils/` (check `mkdocs.yml` to find others).
 
 Live-reloading main docs:
 

@@ -1,40 +1,33 @@
 # Getting Started
 
 !!! info "Join the Community"
-    If you'd like to chat to the PyTauri maintainers and other PyTauri users, consider joining the [PyTauri Discord server](https://discord.gg/TaXhVp7Shw). We're keen to hear about your experience getting started, so we can make PyTauri as accessible as possible for everyone!
+    If you'd like to chat to the PyTauriX maintainers and other PyTauriX users, consider joining the [PyTauriX Discord server](https://discord.gg/TaXhVp7Shw). We're keen to hear about your experience getting started, so we can make PyTauriX as accessible as possible for everyone!
 
-## Create PyTauri App
+## Create PyTauriX App
 
 !!! tip
 
-    Since version `0.6`, [create-pytauri-app] is the recommended way to start a new PyTauri project, even if it is still in development. Refer to [uv] and [copier], run the following command:
+    PyTauriX has no public project template during the alpha period. Start
+    with the in-repository `examples/tauri-app` project, then replace its
+    application metadata and frontend.
 
-    ```bash
-    uvx copier copy https://github.com/pytauri/create-pytauri-app .
-    ```
+    **However, we still recommend reading the entire "Tutorial" section, as it will help you understand all the details of pytaurix.**
 
-    This will initialize the project in the form of an interactive questionnaire.
-
-    **However, we still recommend reading the entire "Tutorial" section, as it will help you understand all the details of pytauri.**
-
-    [create-pytauri-app]: https://github.com/pytauri/create-pytauri-app/
-    [uv]: https://docs.astral.sh/uv/guides/tools/
-    [copier]: https://copier.readthedocs.io/en/stable/generating/
 
 ---
 
-Before starting the tutorial, we recommend installing the following tools, which are considered best practices for initializing a pytauri project. We will use these tools throughout the tutorial.
+Before starting the tutorial, we recommend installing the following tools, which are considered best practices for initializing a pytaurix project. We will use these tools throughout the tutorial.
 
 - [create-tauri-app](https://github.com/tauri-apps/create-tauri-app): `v4.5.9`
-- [uv](https://github.com/astral-sh/uv): `v0.5.11`
-- [tauri-cli](https://www.npmjs.com/package/@tauri-apps/cli): `v2.1.0`
+- [uv](https://github.com/astral-sh/uv): a current stable release
+- [tauri-cli](https://www.npmjs.com/package/@tauri-apps/cli): `v2.11.4`
 
 !!! note
     The specified versions above are the ones used when writing this tutorial. You can use other versions, but the usage might differ from the examples in this tutorial.
 
 ## Full Example
 
-<https://github.com/pytauri/pytauri/tree/main/examples/tauri-app>
+<https://github.com/ECLteam/PyTauriX/tree/main/examples/tauri-app>
 
 ## Create a new tauri project
 
@@ -43,7 +36,7 @@ ref: <https://tauri.app/start/create-project/#using-create-tauri-app>
 !!! note
     In this tutorial, we will use [pnpm](https://pnpm.io/) to manage the frontend.
 
-    However, pytauri does not have any opinion on which frontend framework you use. You can even serve the frontend resources via a server using a URL.
+    However, pytaurix does not have any opinion on which frontend framework you use. You can even serve the frontend resources via a server using a URL.
 
 ```console
 pnpm create tauri-app
@@ -103,4 +96,4 @@ Congratulations! When you finally see a window with web content appear, you have
 
 ## Next Steps
 
-Next, we will demonstrate how to integrate Python into the Tauri application using pytauri.
+Next, we will demonstrate how to integrate Python into the Tauri application using pytaurix.

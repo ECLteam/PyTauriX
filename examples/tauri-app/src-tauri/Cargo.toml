@@ -19,7 +19,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 # the same as the package name
 name = "tauri-app"
 path = "src/main.rs"
-required-features = ["pytauri/standalone"]
+required-features = ["pytaurix/standalone"]
 
 
 [build-dependencies]
@@ -31,7 +31,7 @@ serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 
 pyo3 = { workspace = true }
-pytauri = { workspace = true, features = [
+pytaurix = { workspace = true, features = [
     "plugin-notification",
     "plugin-dialog",
     "plugin-clipboard-manager",
@@ -40,6 +40,7 @@ pytauri = { workspace = true, features = [
     "plugin-autostart",
     "plugin-deep-link",
     "plugin-http",
+    "plugin-log",
     "plugin-os",
     "plugin-persisted-scope",
     "plugin-positioner",
@@ -52,7 +53,7 @@ pytauri = { workspace = true, features = [
     "plugin-window-state",
     "plugin-global-shortcut",
 ] }
-tauri-plugin-pytauri = { workspace = true }
+tauri-plugin-pytaurix = { workspace = true }
 tauri-plugin-notification = { workspace = true }
 tauri-plugin-dialog = { workspace = true }
 tauri-plugin-clipboard-manager = { workspace = true }

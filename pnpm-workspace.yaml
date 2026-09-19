@@ -2,11 +2,11 @@ packages:
   - "packages/*"
   - "examples/tauri-app"
   - "examples/tauri-app-wheel"
-  - "crates/tauri-plugin-pytauri/guest-js"
+  - "crates/tauri-plugin-pytaurix/guest-js"
 
 catalog:
-  "@tauri-apps/cli": ^2.8
-  "@tauri-apps/api": ^2.8
+  "@tauri-apps/cli": 2.11.4
+  "@tauri-apps/api": 2.11.1
   "@tauri-apps/plugin-opener": ^2.5
   "@tauri-apps/plugin-dialog": ^2.3
 

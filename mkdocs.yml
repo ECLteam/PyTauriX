@@ -1,8 +1,8 @@
-site_name: PyTauri
-site_url: https://pytauri.github.io/pytauri/
+site_name: PyTauriX
+site_url: https://eclteam.github.io/PyTauriX/
 
-repo_url: https://github.com/pytauri/pytauri/
-repo_name: pytauri/pytauri
+repo_url: https://github.com/ECLteam/PyTauriX/
+repo_name: ECLteam/PyTauriX
 
 edit_uri: edit/main/docs/
 
@@ -143,10 +143,10 @@ plugins:
               # set these also for `[options.paths]`
               - codelldb
               - pyo3_utils
-              - pytauri
-              - pytauri_plugins  # it is shipped within the `pytauri` package on PyPI
-              - pytauri_utils  # it is shipped within the `pytauri` package on PyPI
-              - pytauri_wheel
+              - pytaurix
+              - pytaurix.plugins  # it is shipped within the `pytaurix` package on PyPI
+              - pytaurix_utils  # it is shipped within the `pytaurix` package on PyPI
+              - pytaurix_wheel
             extensions:
               # https://mkdocstrings.github.io/griffe-inherited-docstrings/
               - griffe_inherited_docstrings
@@ -182,8 +182,8 @@ plugins:
             # set these also for `[options.preload_modules]`
             - python/codelldb/src
             - python/pyo3-utils/src
-            - python/pytauri/src
-            - python/pytauri-wheel/python/pytauri_wheel
+            - python/pytaurix/src
+            - python/pytaurix-wheel/python/pytaurix_wheel
 
   # Remember: https://github.com/timvink/mkdocs-git-revision-date-localized-plugin#note-when-using-build-environments
   - git-revision-date-localized:
@@ -193,34 +193,34 @@ plugins:
       type: timeago
   - git-committers:
       enabled: !ENV [CI, false]
-      repository: pytauri/pytauri
+      repository: ECLteam/PyTauriX
       branch: main
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/pytauri/
+      link: https://github.com/ECLteam/
   # see: https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/
   version:
     provider: mike
 
 watch:
   - python/
-  - docs_src/
+  - docs/snippets/
   - README.md
   - CONTRIBUTING.md
   - CHANGELOG.md
   # py
-  - python/pytauri/CHANGELOG.md
+  - python/pytaurix/CHANGELOG.md
   - python/pyo3-utils/CHANGELOG.md
   - python/codelldb/CHANGELOG.md
   # rs
-  - crates/pytauri/CHANGELOG.md
-  - crates/pytauri-core/CHANGELOG.md
-  - crates/tauri-plugin-pytauri/CHANGELOG.md
+  - crates/pytaurix/CHANGELOG.md
+  - crates/pytaurix-core/CHANGELOG.md
+  - crates/tauri-plugin-pytaurix/CHANGELOG.md
   - crates/pyo3-utils/CHANGELOG.md
   # js
-  - crates/tauri-plugin-pytauri/guest-js/CHANGELOG.md
+  - crates/tauri-plugin-pytaurix/guest-js/CHANGELOG.md
 
 validation:
   omitted_files: warn
@@ -230,12 +230,16 @@ validation:
 # Don't change the name "reference/"
 # It's used in utils/gen_ref_pages.py
 nav:
-  - Home: index.md
+  - 中文文档（推荐）:
+      - 首页: index.md
+      - zh-CN/index.md
+  - English Documentation:
+      - Overview: en/index.md
   - Usage:
       - Tutorial:
           - usage/tutorial/index.md
           - usage/tutorial/getting-started.md
-          - usage/tutorial/using-pytauri.md
+          - usage/tutorial/using-pytaurix.md
           - usage/tutorial/py-js-ipc.md
           - usage/tutorial/gen-ts.md
           - usage/tutorial/state-management.md
@@ -246,14 +250,17 @@ nav:
           - Build Standalone Binary:
               - usage/tutorial/build-standalone.md
               - usage/tutorial/build-standalone-cython.md
-      - PyTauri Wheel:
-          - usage/pytauri-wheel/index.md
+      - PyTauriX Wheel:
+          - usage/pytaurix-wheel/index.md
       - Concepts:
           - usage/concepts/index.md
           - usage/concepts/ipc.md
           - usage/concepts/async.md
           - usage/concepts/mutiprocessing.md
       - Using Unreleased Commits: usage/using-unreleased-commits.md
+  - Migration and Roadmap:
+      - Migrating from PyTauri 0.8: migration-from-pytauri-0.8.md
+      - Alpha Roadmap: roadmap.md
   - API Reference:
       # NOTE:
       # - DO NOT change `reference/py/`, it's also used in `utils/gen_ref_pages.py`.
@@ -267,14 +274,14 @@ nav:
       # NOTE: must set the title for the first item, or it will be considered as `index`.
       # see: <https://github.com/oprypin/mkdocs-section-index/issues/6#issuecomment-914666358>
       - py:
-          - pytauri: CHANGELOG/py/pytauri.md
-          - pytauri-wheel: CHANGELOG/py/pytauri-wheel.md
+          - pytaurix: CHANGELOG/py/pytaurix.md
+          - pytaurix-wheel: CHANGELOG/py/pytaurix-wheel.md
           - pyo3-utils: CHANGELOG/py/pyo3-utils.md
           - codelldb: CHANGELOG/py/codelldb.md
       - rs:
-          - pytauri: CHANGELOG/rs/pytauri.md
-          - pytauri-core: CHANGELOG/rs/pytauri-core.md
-          - tauri-plugin-pytauri: CHANGELOG/rs/tauri-plugin-pytauri.md
+          - pytaurix: CHANGELOG/rs/pytaurix.md
+          - pytaurix-core: CHANGELOG/rs/pytaurix-core.md
+          - tauri-plugin-pytaurix: CHANGELOG/rs/tauri-plugin-pytaurix.md
           - pyo3-utils: CHANGELOG/rs/pyo3-utils.md
       - js:
-          - tauri-plugin-pytauri-api: CHANGELOG/js/tauri-plugin-pytauri-api.md
+          - "@pytaurix/api": CHANGELOG/js/tauri-plugin-pytaurix-api.md

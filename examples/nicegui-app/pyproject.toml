@@ -2,20 +2,17 @@
 name = "nicegui-app"
 version = "0.1.0"
 description = "Add your description here"
-# TODO: Although we use the `match` feature of py310,
-# we still keep `requires-python = ">=3.9"` here,
-# otherwise it cannot be installed in the py39 CI job.
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "nicegui >= 2.9.1, < 3",
     "fastapi >= 0.115.6",
     "uvicorn >= 0.34",
-    "pytauri == 0.1.*",
+    "pytaurix == 0.1.0a1",
     "anyio == 4.*",
     "typing-extensions >= 4",
 ]
 
-[project.entry-points.pytauri]
+[project.entry-points.pytaurix]
 # - "nicegui_app" -> `python/nicegui_app/`
 # - "ext_mod" -> `#[pyo3(name = "ext_mod")]` in rust
 ext_mod = "nicegui_app.ext_mod"
@@ -35,7 +32,7 @@ find = { where = ["python"] }
 [tool.maturin]
 # the same as [tool.setuptools.packages.find.where]
 python-source = "python"
-# the same as `[project.entry-points.pytauri.ext_mod]`,
+# the same as `[project.entry-points.pytaurix.ext_mod]`,
 # i.e., `target` in `setup.py`
 module-name = "nicegui_app.ext_mod"
 # see `setup.py`
@@ -45,7 +42,7 @@ sdist-generator = "git"
 
 
 [tool.uv.sources]
-pytauri = { workspace = true }
+pytaurix = { workspace = true }
 
 
 [tool.ruff]

@@ -1,10 +1,10 @@
 from os import environ
 
-# This is an env var that can only be used internally by pytauri to distinguish
+# This is an env var that can only be used internally by pytaurix to distinguish
 # between different example extension modules.
 # You don't need and shouldn't set this in your own app.
-# Must be set before importing any pytauri module.
-environ["_PYTAURI_DIST"] = "tauri-app"
+# Must be set before importing any pytaurix module.
+environ["_PYTAURIX_DIST"] = "tauri-app"
 
 import sys
 from datetime import datetime
@@ -16,7 +16,7 @@ from anyio import sleep
 from anyio.from_thread import start_blocking_portal
 from pydantic import BaseModel, ConfigDict, RootModel
 from pydantic.alias_generators import to_camel
-from pytauri import (
+from pytaurix import (
     AppHandle,
     Commands,
     Manager,
@@ -24,9 +24,8 @@ from pytauri import (
     builder_factory,
     context_factory,
 )
-from pytauri.ipc import Channel, JavaScriptChannelId
-from pytauri.webview import WebviewWindow
-from pytauri_plugins import (
+from pytaurix.ipc import Channel, JavaScriptChannelId
+from pytaurix.plugins import (
     autostart,
     clipboard_manager,
     deep_link,
@@ -34,6 +33,7 @@ from pytauri_plugins import (
     fs,
     global_shortcut,
     http,
+    log,
     notification,
     opener,
     os,
@@ -47,16 +47,17 @@ from pytauri_plugins import (
     websocket,
     window_state,
 )
-from pytauri_plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
-from pytauri_plugins.notification import NotificationExt
-from pytauri_utils.async_tools import AsyncTools
+from pytaurix.plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
+from pytaurix.plugins.notification import NotificationExt
+from pytaurix.webview import WebviewWindow
+from pytaurix_utils.async_tools import AsyncTools
 
 from tauri_app.private import private_algorithm
 
-PYTAURI_GEN_TS = environ.get("PYTAURI_GEN_TS") != "0"
+PYTAURIX_GEN_TS = environ.get("PYTAURIX_GEN_TS") != "0"
 
 
-commands = Commands(experimental_gen_ts=PYTAURI_GEN_TS)
+commands = Commands(experimental_gen_ts=PYTAURIX_GEN_TS)
 
 
 Time = RootModel[datetime]
@@ -147,7 +148,7 @@ def main() -> int:
         start_blocking_portal("asyncio") as portal,  # or `trio`
         AsyncTools(portal) as async_tools,
     ):
-        if PYTAURI_GEN_TS:
+        if PYTAURIX_GEN_TS:
             output_dir = Path(__file__).parent.parent.parent.parent / "src" / "client"
             json2ts_cmd = "pnpm json2ts --format=false"
             portal.start_task_soon(
@@ -172,6 +173,7 @@ def main() -> int:
                 autostart.init(),
                 deep_link.init(),
                 http.init(),
+                log.Builder.build(level="info", targets=["stdout", "log_dir"]),
                 os.init(),
                 persisted_scope.init(),
                 positioner.init(),

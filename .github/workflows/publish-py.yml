@@ -3,13 +3,9 @@
 # WARNING: Do not change the name of this file, keep `publish-py.yml`.
 # "trusted publishing" will check the name of the workflow file.
 
-name: Publish Python 🐍 distribution 📦 to PyPI
+name: Build internal Python preview artifacts
 
 on:
-  push:
-    tags:
-      # e.g., py/pyo3-utils/v0.1.0
-      - py/*/v*
   workflow_dispatch:
     inputs:
       release_tag:
@@ -33,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         # TODO, FIXME: 3.13t, need wait for <https://github.com/actions/setup-python/pull/973>
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
         # Use the oldest possible system to compile extension wheels
         # (note: the system dependencies of tauri v2 requires at least Ubuntu 22.04)
         os:
@@ -49,10 +45,6 @@ jobs:
           # see:
           #   - <https://github.com/actions/setup-python/issues/715#issuecomment-2307075309>
           #   - <https://github.com/astral-sh/python-build-standalone/pull/387#issuecomment-2818671913>
-          - os: windows-11-arm
-            python-version: 3.9
-          - os: windows-11-arm
-            python-version: 3.10
     outputs:
       package: ${{ steps.dry-run.outputs.package }}
     steps:
@@ -97,6 +89,7 @@ jobs:
           if-no-files-found: error
 
   publish-to-pypi:
+    if: ${{ false }} # Alpha releases must not reach public registries.
     needs:
       - build-dist
     name: Publish Python 🐍 distribution 📦 to PyPI
@@ -120,6 +113,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
 
   github-release:
+    if: ${{ false }} # Internal preview artifacts remain workflow artifacts.
     needs:
       - publish-to-pypi
     name: Create GitHub release 🏷️

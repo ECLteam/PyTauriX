@@ -1,11 +1,11 @@
 import { message } from '@tauri-apps/plugin-dialog';
-import { pyInvoke } from "tauri-plugin-pytauri-api";
+import { pyInvoke } from "@pytaurix/api";
 import { Channel } from "@tauri-apps/api/core";
 // or if tauri config `app.withGlobalTauri = true`:
 //
 // ```js
 // const { ask } = window.__TAURI__.dialog;
-// const { pyInvoke } = window.__TAURI__.pytauri;
+// const { pyInvoke } = window.__TAURI__.pytaurix;
 // ```
 
 let greetInputEl: HTMLInputElement | null;

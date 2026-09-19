@@ -1,1 +1,0 @@
---8<-- "crates/pytauri-core/CHANGELOG.md"

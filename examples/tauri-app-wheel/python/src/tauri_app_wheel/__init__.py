@@ -1,10 +1,10 @@
 from os import environ
 
-# This is an env var that can only be used internally by pytauri to distinguish
+# This is an env var that can only be used internally by pytaurix to distinguish
 # between different example extension modules.
 # You don't need and shouldn't set this in your own app.
-# Must be set before importing any pytauri module.
-environ["_PYTAURI_DIST"] = "pytauri-wheel"
+# Must be set before importing any pytaurix module.
+environ["_PYTAURIX_DIST"] = "pytaurix-wheel"
 
 ################################################################################
 
@@ -18,14 +18,13 @@ from anyio.abc import TaskGroup
 from anyio.from_thread import start_blocking_portal
 from pydantic import BaseModel, ConfigDict, RootModel
 from pydantic.alias_generators import to_camel
-from pytauri import (
+from pytaurix import (
     AppHandle,
     Commands,
     Manager,
 )
-from pytauri.ipc import Channel, JavaScriptChannelId
-from pytauri.webview import WebviewWindow
-from pytauri_plugins import (
+from pytaurix.ipc import Channel, JavaScriptChannelId
+from pytaurix.plugins import (
     autostart,
     clipboard_manager,
     deep_link,
@@ -45,7 +44,8 @@ from pytauri_plugins import (
     websocket,
     window_state,
 )
-from pytauri_wheel.lib import builder_factory, context_factory
+from pytaurix.webview import WebviewWindow
+from pytaurix_wheel.lib import builder_factory, context_factory
 
 SRC_TAURI_DIR = Path(__file__).parent.absolute()
 

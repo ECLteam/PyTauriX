@@ -32,6 +32,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0-alpha.1]
+
+### BREAKING
+
+- Forked PyTauri as PyTauriX. Python imports now use `pytaurix`, plugins use
+  `pytaurix.plugins`, and the JavaScript bridge is `@pytaurix/api`.
+- Python 3.11 and Rust 1.83 are now required. PyTauri 0.8 compatibility
+  namespaces are intentionally not provided.
+
+### Added
+
+- Added the stable low-level `pytaurix.raw` namespace and the high-level
+  `Application` lifecycle wrapper.
+- Added the alpha capability ledger, migration guide, desktop smoke workflow,
+  and an internal-only release workflow.
+
 ### Internal
 
 - [#275](https://github.com/pytauri/pytauri/pull/275) - ci(pre-commit): some hooks are not executed in CI (`manual` stage).
@@ -48,18 +64,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > - [#266](https://github.com/pytauri/pytauri/pull/266) - docs: add discord server link.
 
-PyTauri now has an [official Discord server](https://discord.gg/TaXhVp7Shw)! Everyone is welcome to join and chat with PyTauri users and developers 😇!
+PyTauriX now has an [official Discord server](https://discord.gg/TaXhVp7Shw)! Everyone is welcome to join and chat with PyTauriX users and developers 😇!
 
 #### `WebviewWindowBuilder` bindings
 
-> - [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytauri): add `WebviewWindowBuilder` bindings.
+> - [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytaurix): add `WebviewWindowBuilder` bindings.
 
 ??? example "Now we can create new `WebviewWindow` from python"
     ```python
     import json
 
-    from pytauri import AppHandle, WebviewUrl
-    from pytauri.webview import WebviewWindow, WebviewWindowBuilder
+    from pytaurix import AppHandle, WebviewUrl
+    from pytaurix.webview import WebviewWindow, WebviewWindowBuilder
 
 
     def create_new_webview_window(manager: AppHandle) -> WebviewWindow:
@@ -97,7 +113,7 @@ PyTauri now has an [official Discord server](https://discord.gg/TaXhVp7Shw)! Eve
 
 #### More `WebviewWindow` and `AppHandle` bindings
 
-> - [#259](https://github.com/pytauri/pytauri/pull/259) - feat(pytauri): more `WebviewWindow` and `AppHandle` bindings.
+> - [#259](https://github.com/pytauri/pytauri/pull/259) - feat(pytaurix): more `WebviewWindow` and `AppHandle` bindings.
 
 ??? tip "Added APIs"
     - Added `tauri-devtools` feature
@@ -115,14 +131,14 @@ PyTauri now has an [official Discord server](https://discord.gg/TaXhVp7Shw)! Eve
 
 > - [#220](https://github.com/pytauri/pytauri/pull/220) - feat: support registering plugin from python.
 
-See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#install-tauri-plugin>, now we support registering plugins from Python:
+See <https://eclteam.github.io/PyTauriX/0.8/usage/tutorial/using-plugins/#install-tauri-plugin>, now we support registering plugins from Python:
 
 ```python
-from pytauri import (
+from pytaurix import (
     builder_factory,
     context_factory,
 )
-from pytauri_plugins import notification
+from pytaurix.plugins import notification
 
 app = builder_factory().build(
     context=context_factory(),
@@ -135,7 +151,7 @@ app = builder_factory().build(
 
 > - [#220](https://github.com/pytauri/pytauri/pull/220) - feat: support registering plugin from python.
 
-See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plugins-we-support>, now we add more plugin bindings for Python.
+See <https://eclteam.github.io/PyTauriX/0.8/usage/tutorial/using-plugins/#all-plugins-we-support>, now we add more plugin bindings for Python.
 
 ??? tip "Added APIs"
     - mod `tauri::`
@@ -169,15 +185,15 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 - [#220](https://github.com/pytauri/pytauri/pull/220) - feat: support registering plugin from python.
 
-    See: <https://pytauri.github.io/pytauri/0.8/usage/pytauri-wheel/#pytauri-plugins>.
+    See: <https://eclteam.github.io/PyTauriX/0.8/usage/pytaurix-wheel/#pytaurix-plugins>.
 
-    The parameters `pytauri_wheel.builder_factory(opener, clipboard_manager, dialog, fs, notification)` have been removed. Please use `pytauri.BuilderArgs.plugins` or `pytauri.Apphandle.plugin` to manually register plugins.
+    The parameters `pytaurix_wheel.builder_factory(opener, clipboard_manager, dialog, fs, notification)` have been removed. Please use `pytaurix.BuilderArgs.plugins` or `pytaurix.Apphandle.plugin` to manually register plugins.
 
     ??? tip "Migration"
         === "current"
             ```python
-            from pytauri_plugins import clipboard_manager, dialog, fs, notification, opener
-            from pytauri_wheel.lib import builder_factory
+            from pytaurix.plugins import clipboard_manager, dialog, fs, notification, opener
+            from pytaurix_wheel.lib import builder_factory
 
             builder = builder_factory()
             app = builder.build(
@@ -195,7 +211,7 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
             ```
         === "previous"
             ```python
-            from pytauri_wheel.lib import builder_factory
+            from pytaurix_wheel.lib import builder_factory
 
             builder = builder_factory(
                 opener=True, clipboard_manager=True, dialog=True, fs=True, notification=True
@@ -208,9 +224,9 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 - [#220](https://github.com/pytauri/pytauri/pull/220) - feat: support registering plugin from python.
 
-    See: <https://pytauri.github.io/pytauri/0.8/usage/pytauri-wheel/#best-practices>.
+    See: <https://eclteam.github.io/PyTauriX/0.8/usage/pytaurix-wheel/#best-practices>.
 
-    It is no longer recommended to use `pytauri-wheel` in script mode (i.e., `python main.py`). Instead, it is recommended to use a standard `pyproject.toml` project and generate venv *standalone* executables via `[project.scripts]` / `[project.gui-scripts]`.
+    It is no longer recommended to use `pytaurix-wheel` in script mode (i.e., `python main.py`). Instead, it is recommended to use a standard `pyproject.toml` project and generate venv *standalone* executables via `[project.scripts]` / `[project.gui-scripts]`.
 
 ### Added
 
@@ -272,7 +288,7 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 - [#262](https://github.com/pytauri/pytauri/pull/262) - feat: support json `str | bytes` or `dict` as input for `tauri::Config`.
 
-    Use a `dict` instead of `json.dumps({...})` as the input for `context_factory(tauri_config)` in the `pytauri-wheel` documentation.
+    Use a `dict` instead of `json.dumps({...})` as the input for `context_factory(tauri_config)` in the `pytaurix-wheel` documentation.
 
     ??? example
         ```python
@@ -305,7 +321,7 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 ### Fixed
 
-- [#253](https://github.com/pytauri/pytauri/pull/253) - fix(pytauri): support deferred evaluation type hint in `@command`.
+- [#253](https://github.com/pytauri/pytauri/pull/253) - fix(pytaurix): support deferred evaluation type hint in `@command`.
 
     ```python
     @commands.command()
@@ -325,8 +341,8 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 ### Fixed
 
-- [#240](https://github.com/pytauri/pytauri/pull/240) - fix(pytauri): include `pytauri_utils` in package.
-    Yank `py/pytauri/v0.7.0` release.
+- [#240](https://github.com/pytauri/pytauri/pull/240) - fix(pytaurix): include `pytaurix_utils` in package.
+    Yank `py/pytaurix/v0.7.0` release.
 
 ## [0.7.0]
 
@@ -334,28 +350,28 @@ See <https://pytauri.github.io/pytauri/0.8/usage/tutorial/using-plugins/#all-plu
 
 #### App State Management and `AsyncTools` utils
 
-> - [#208](https://github.com/pytauri/pytauri/pull/208) - feat(pytauri)!: app state management and `AsyncTools` utils.
+> - [#208](https://github.com/pytauri/pytauri/pull/208) - feat(pytaurix)!: app state management and `AsyncTools` utils.
 
 See:
 
-- State Management: <https://pytauri.github.io/pytauri/0.7/usage/tutorial/state-management>
-- `AsyncTools`: <https://pytauri.github.io/pytauri/0.7/usage/concepts/async>
+- State Management: <https://eclteam.github.io/PyTauriX/0.7/usage/tutorial/state-management>
+- `AsyncTools`: <https://eclteam.github.io/PyTauriX/0.7/usage/concepts/async>
 
 #### Debugging Tutorial
 
 > - [#182](https://github.com/pytauri/pytauri/pull/182) - feat!: debugging tutorial.
 
-See: <https://pytauri.github.io/pytauri/0.7/usage/tutorial/debugging>
+See: <https://eclteam.github.io/PyTauriX/0.7/usage/tutorial/debugging>
 
-Also, we added `tauri::{IS_DEV, RESTART_EXIT_CODE, VERSION, webview_version}` for obtaining pytauri runtime configuration.
+Also, we added `tauri::{IS_DEV, RESTART_EXIT_CODE, VERSION, webview_version}` for obtaining pytaurix runtime configuration.
 
 ![debugging](https://github.com/user-attachments/assets/d8d3763d-0285-4265-b071-8cdcd5921efa)
 
 #### Generate TypeScript Client for IPC
 
-> - [#179](https://github.com/pytauri/pytauri/pull/179) - feat(pytauri): generate typescript client for IPC.
+> - [#179](https://github.com/pytauri/pytauri/pull/179) - feat(pytaurix): generate typescript client for IPC.
 
-See: <https://pytauri.github.io/pytauri/0.7/usage/tutorial/gen-ts>
+See: <https://eclteam.github.io/PyTauriX/0.7/usage/tutorial/gen-ts>
 
 ```py
 @commands.command()
@@ -375,13 +391,13 @@ export async function greetToPerson(
 
 #### Support using arbitrary types in `command`
 
-> - [#171](https://github.com/pytauri/pytauri/pull/171) - feat(pytauri): support using arbitrary types in `command`.
+> - [#171](https://github.com/pytauri/pytauri/pull/171) - feat(pytaurix): support using arbitrary types in `command`.
 
-See: <https://pytauri.github.io/pytauri/0.7/usage/concepts/ipc/#deserializing-the-body-using-arbitrary-types>
+See: <https://eclteam.github.io/PyTauriX/0.7/usage/concepts/ipc/#deserializing-the-body-using-arbitrary-types>
 
 ```python
 from pydantic import RootModel
-from pytauri import Commands
+from pytaurix import Commands
 
 commands = Commands()
 
@@ -402,11 +418,11 @@ async def new(body: str) -> None:
 
 ### BREAKING
 
-- [#208](https://github.com/pytauri/pytauri/pull/208) - feat(pytauri)!: app state management and `AsyncTools` utils.
+- [#208](https://github.com/pytauri/pytauri/pull/208) - feat(pytaurix)!: app state management and `AsyncTools` utils.
 
     The following parameters have been removed:
 
-    - `pytauri.Commands`
+    - `pytaurix.Commands`
         - `set_command(check_signature)`
         - `parse_parameters(check_signature)`
 
@@ -415,8 +431,8 @@ async def new(body: str) -> None:
     !!! tip "Migration"
 
         ```diff
-        -import { rawPyInvoke, Channel } from "tauri-plugin-pytauri-api";
-        +import { pyInvoke } from "tauri-plugin-pytauri-api";
+        -import { rawPyInvoke, Channel } from "@pytaurix/api";
+        +import { pyInvoke } from "@pytaurix/api";
         +import { Channel } from "@tauri-apps/api/core";
         ```
 
@@ -427,17 +443,17 @@ async def new(body: str) -> None:
         - `ArrayBuffer`/`Uint8Array` will be sent directly to the backend.
         - Other types (`any`) will be converted to `ArrayBuffer` using `JSON.stringify` and `TextEncoder` before being sent to the backend.
 
-        [Only the backend can decide whether to deserialize or accept the raw bytes data](https://pytauri.github.io/pytauri/0.7/usage/concepts/ipc/#commands).
+        [Only the backend can decide whether to deserialize or accept the raw bytes data](https://eclteam.github.io/PyTauriX/0.7/usage/concepts/ipc/#commands).
 
     - Only the backend can decide whether to return deserialized JSON data or raw `ArrayBuffer` data:
 
-        - If `Command` returns a `bytes` type or [Channel.send][pytauri.ipc.Channel.send] sends a `bytes` type, the frontend will receive an `ArrayBuffer`.
-        - If `Command` returns other types (`BaseModel`/`Any`) and [Channel.send][pytauri.ipc.Channel.send] sends a `str` type, the frontend will receive automatically deserialized JSON data.
+        - If `Command` returns a `bytes` type or [Channel.send][pytaurix.ipc.Channel.send] sends a `bytes` type, the frontend will receive an `ArrayBuffer`.
+        - If `Command` returns other types (`BaseModel`/`Any`) and [Channel.send][pytaurix.ipc.Channel.send] sends a `str` type, the frontend will receive automatically deserialized JSON data.
 
     Therefore:
 
     - `pyInvoke` replaces `rawPyInvoke`
-    - `import { Channel } from "@tauri-apps/api/core"` replaces `import { Channel } from "tauri-plugin-pytauri-api"`.
+    - `import { Channel } from "@tauri-apps/api/core"` replaces `import { Channel } from "@pytaurix/api"`.
 
 ## [0.6.1]
 
@@ -462,12 +478,12 @@ A branding overhaul with an updated logo and colors:
 
 **Q: Changing the logo and branding color might confuse users that they have entered the wrong site**
 
-While this might be true, we think PyTauri is not large enough yet to have this be a big issue. Either way I would suggest leaving this issue [#170](https://github.com/pytauri/pytauri/issues/170) up for a week and adding the banner above to the website to prepare users for the transition. An argument could also be made that a more professional looking icon attracts more users.
+While this might be true, we think PyTauriX is not large enough yet to have this be a big issue. Either way I would suggest leaving this issue [#170](https://github.com/ECLteam/PyTauriX/issues/170) up for a week and adding the banner above to the website to prepare users for the transition. An argument could also be made that a more professional looking icon attracts more users.
 Anyway, we will not change the logo (at least the color) again in the future.
 
 ### Fixed
 
-- [#175](https://github.com/pytauri/pytauri/pull/175) - fix(pytauri): bump `tauri-plugin-*` to fix rust docs build failures on `docs.rs`.
+- [#175](https://github.com/pytauri/pytauri/pull/175) - fix(pytaurix): bump `tauri-plugin-*` to fix rust docs build failures on `docs.rs`.
 
     See [tauri-apps/tauri#13597](https://github.com/tauri-apps/tauri/pull/13597#issuecomment-2961321899) for details.
 
@@ -481,32 +497,32 @@ Anyway, we will not change the logo (at least the color) again in the future.
 
 ### Highlights
 
-#### `create-pytauri-app` template generator
+#### `create-pytaurix-app` template generator
 
 > - [#169](https://github.com/pytauri/pytauri/pull/169) - docs: update docs for v0.6.0 .
 
-Since version `0.6`, [create-pytauri-app](https://github.com/pytauri/create-pytauri-app/) is the recommended way to start a new PyTauri project, even if it is still in development.
+Since version `0.6`, [create-pytaurix-app](https://github.com/pytaurix/create-pytaurix-app/) is the recommended way to start a new PyTauriX project, even if it is still in development.
 
 ??? tip "Usage"
 
     Refer to [uv] and [copier], run the following command:
 
     ```bash
-    uvx copier copy https://github.com/pytauri/create-pytauri-app .
+    uvx copier copy https://github.com/pytaurix/create-pytaurix-app .
     ```
 
     This will initialize the project in the form of an interactive questionnaire:
 
     ```text
     🎤 Project name
-    pytauri-app
+    pytaurix-app
     🎤 Identifier
-    com.pytauri-app.app
+    com.pytaurix-app.app
     🎤 Choose your UI template
     Vue
     ```
 
-    **However, we still recommend reading the entire "Tutorial" section, as it will help you understand all the details of pytauri.**
+    **However, we still recommend reading the entire "Tutorial" section, as it will help you understand all the details of pytaurix.**
 
     [uv]: https://docs.astral.sh/uv/guides/tools/
     [copier]: https://copier.readthedocs.io/en/stable/generating/
@@ -515,14 +531,14 @@ Since version `0.6`, [create-pytauri-app](https://github.com/pytauri/create-pyta
 
 > - [#163](https://github.com/pytauri/pytauri/pull/163) - feat(plugin): implement `tauri-plugin-dialog` bindings.
 
-[`tauri-plugin-dialog`](https://tauri.app/plugin/dialog/) has now been integrated into `pytauri` as the `plugin-dialog` gated feature.
+[`tauri-plugin-dialog`](https://tauri.app/plugin/dialog/) has now been integrated into `pytaurix` as the `plugin-dialog` gated feature.
 
 ??? tip "Usage"
 
     ![dialog](https://github.com/user-attachments/assets/85cbf9f1-4203-4336-959a-499b3691bcd9)
 
     ```py
-    from pytauri_plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
+    from pytaurix.plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
 
     @commands.command()
     async def greet(
@@ -549,11 +565,11 @@ Since version `0.6`, [create-pytauri-app](https://github.com/pytauri/create-pyta
 
 #### Integrate plugins as features
 
-> - [#160](https://github.com/pytauri/pytauri/pull/160) - feat(pytauri)!: integrate `plugin-notification` as a gated-feature of `pytauri`.
+> - [#160](https://github.com/pytauri/pytauri/pull/160) - feat(pytaurix)!: integrate `plugin-notification` as a gated-feature of `pytaurix`.
 
-The `rs/pytauri-plugin-notification` crate and the `py/pytauri-plugin-notification` package have been removed. Instead, use the `plugin-notification` [feature](https://doc.rust-lang.org/cargo/reference/features.html) of the `rs/pytauri` crate.
+The `rs/pytaurix-plugin-notification` crate and the `py/pytaurix-plugin-notification` package have been removed. Instead, use the `plugin-notification` [feature](https://doc.rust-lang.org/cargo/reference/features.html) of the `rs/pytaurix` crate.
 
-For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tutorial/using-plugins/) and [`v0.6`](https://pytauri.github.io/pytauri/0.6/usage/tutorial/using-plugins/) "tutorial/using-plugins" documentation.
+For details, compare the [`v0.5`](https://eclteam.github.io/PyTauriX/0.5/usage/tutorial/using-plugins/) and [`v0.6`](https://eclteam.github.io/PyTauriX/0.6/usage/tutorial/using-plugins/) "tutorial/using-plugins" documentation.
 
 ??? tip "Migration"
 
@@ -561,8 +577,8 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
     # src-tauri/Cargo.toml
 
     [dependencies]
-    -pytauri-plugin-notification = ...
-    +pytauri = { version = "...", features = ["plugin-notification"] }
+    -pytaurix-plugin-notification = ...
+    +pytaurix = { version = "...", features = ["plugin-notification"] }
     ```
 
     ```diff
@@ -570,7 +586,7 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
     mod ext_mod {
     -    #[pymodule_export]
-    -    use pytauri_plugin_notification::notification;
+    -    use pytaurix_plugin_notification::notification;
     }
     ```
 
@@ -579,15 +595,15 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
     [project]
     dependencies = [
-    -    pytauri-plugin-notification = ...
+    -    pytaurix-plugin-notification = ...
     ]
     ```
 
     ```diff
     # src-tauri/python/tauri_app/__init__.py
 
-    -from pytauri_plugin_notification import NotificationExt
-    +from pytauri_plugins.notification import NotificationExt
+    -from pytaurix_plugin_notification import NotificationExt
+    +from pytaurix.plugins.notification import NotificationExt
     ```
 
 ### BREAKING
@@ -596,9 +612,9 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
     ??? bug "Patch `install_name` for `libpython3.*.dylib` of `python-build-standalone`"
 
-        See: <https://github.com/pytauri/pytauri/issues/99#issuecomment-2704556726>.
+        See: <https://github.com/ECLteam/PyTauriX/issues/99#issuecomment-2704556726>.
 
-        The `install_name` of `libpython3.*.dylib` built by `python-build-standalone` [does not include `@rpath`](https://github.com/astral-sh/python-build-standalone/blob/d0ed97f7618769996f1dd2a586faec150d7ebcb9/cpython-unix/build-cpython.sh#L611-L624), which makes the [`rpath` set for the executable](https://pytauri.github.io/pytauri/0.5/usage/tutorial/build-standalone/#macos) ineffective.
+        The `install_name` of `libpython3.*.dylib` built by `python-build-standalone` [does not include `@rpath`](https://github.com/astral-sh/python-build-standalone/blob/d0ed97f7618769996f1dd2a586faec150d7ebcb9/cpython-unix/build-cpython.sh#L611-L624), which makes the [`rpath` set for the executable](https://eclteam.github.io/PyTauriX/0.5/usage/tutorial/build-standalone/#macos) ineffective.
 
         **Migration**
 
@@ -612,13 +628,13 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
         See: <https://github.com/tauri-apps/tauri/issues/12934>
 
-        `tauri` does not allow creating more than one `App` instance per process. Previously, we were unaware of this limitation and suggested creating a [`sample_app`](https://github.com/pytauri/pytauri/blob/bfb84aba80f8774e3db6e69ff5d74425e0b8c736/examples/tauri-app/src-tauri/src/main.rs#L30-L37) to obtain the `resource_dir`, which subsequently caused a panic in [`App` in `__init__.py`](https://github.com/pytauri/pytauri/blob/bfb84aba80f8774e3db6e69ff5d74425e0b8c736/examples/tauri-app/src-tauri/python/tauri_app/__init__.py#L120-L126).
+        `tauri` does not allow creating more than one `App` instance per process. Previously, we were unaware of this limitation and suggested creating a [`sample_app`](https://github.com/ECLteam/PyTauriX/blob/bfb84aba80f8774e3db6e69ff5d74425e0b8c736/examples/tauri-app/src-tauri/src/main.rs#L30-L37) to obtain the `resource_dir`, which subsequently caused a panic in [`App` in `__init__.py`](https://github.com/ECLteam/PyTauriX/blob/bfb84aba80f8774e3db6e69ff5d74425e0b8c736/examples/tauri-app/src-tauri/python/tauri_app/__init__.py#L120-L126).
 
         **Migration**
 
-        <https://github.com/pytauri/create-pytauri-app/pull/1/commits/6813b7df4211d711fc962f251e7bedeb9a2378d0>
+        <https://github.com/pytaurix/create-pytaurix-app/pull/1/commits/6813b7df4211d711fc962f251e7bedeb9a2378d0>
 
-- [#161](https://github.com/pytauri/pytauri/pull/161) - refactor(pytauri)!: refactor `BuilderArgs` to `TypedDict`.
+- [#161](https://github.com/pytauri/pytauri/pull/161) - refactor(pytaurix)!: refactor `BuilderArgs` to `TypedDict`.
 
     ??? tip "Migration"
 
@@ -633,7 +649,7 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
         )
         ```
 
-- [#157](https://github.com/pytauri/pytauri/pull/157) - feat(pytauri)!: `Position.Physical(x, y)` -> `Position.Physical((x, y))`.
+- [#157](https://github.com/pytauri/pytauri/pull/157) - feat(pytaurix)!: `Position.Physical(x, y)` -> `Position.Physical((x, y))`.
 
     These APIs have changed:
 
@@ -645,7 +661,7 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
     ??? tip "Migration"
 
         ```diff
-        from pytauri import Position, PositionType, Size, SizeType
+        from pytaurix import Position, PositionType, Size, SizeType
 
         def foo(pos: PositionType, size: SizeType) -> None:
             match pos:
@@ -669,7 +685,7 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
 ### Added
 
-- [#157](https://github.com/pytauri/pytauri/pull/157) - feat(pytauri): fully implement `tauri::RunEvent` bindings.
+- [#157](https://github.com/pytauri/pytauri/pull/157) - feat(pytaurix): fully implement `tauri::RunEvent` bindings.
     - `mod tauri::`
         - `Theme`
         - `CloseRequestApi`
@@ -686,7 +702,7 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
     ??? tip "Usage"
 
         ```py
-        from pytauri import AppHandle, Manager, WindowEvent, WindowEventType
+        from pytaurix import AppHandle, Manager, WindowEvent, WindowEventType
 
 
         def register_window_event_handler(app_handle: AppHandle):
@@ -723,19 +739,19 @@ For details, compare the [`v0.5`](https://pytauri.github.io/pytauri/0.5/usage/tu
 
 > - [#139](https://github.com/pytauri/pytauri/pull/139) - feat: add support for the `windows-11-arm` platform wheel.
 
-You can now install `pytauri-wheel` from PyPI on Windows 11 Arm64.
+You can now install `pytaurix-wheel` from PyPI on Windows 11 Arm64.
 
 #### Using Unreleased Commits
 
 > - [#147](https://github.com/pytauri/pytauri/pull/147) - feat: support installation from git repository.
 
-See: <https://pytauri.github.io/pytauri/0.5/usage/using-unreleased-commits/>
+See: <https://eclteam.github.io/PyTauriX/0.5/usage/using-unreleased-commits/>
 
 #### Accessing the request headers
 
-> - [#136](https://github.com/pytauri/pytauri/pull/136) - feat(pytauri): accessing the request headers in `Commands`.
+> - [#136](https://github.com/pytauri/pytauri/pull/136) - feat(pytaurix): accessing the request headers in `Commands`.
 
-See: <https://pytauri.github.io/pytauri/0.5/usage/concepts/ipc/#accessing-request-headers>
+See: <https://eclteam.github.io/PyTauriX/0.5/usage/concepts/ipc/#accessing-request-headers>
 
 #### Protect source code
 
@@ -743,21 +759,21 @@ See: <https://pytauri.github.io/pytauri/0.5/usage/concepts/ipc/#accessing-reques
 
 ![cythonized](https://github.com/user-attachments/assets/d4ecc6ae-b27f-4b8a-ad3e-28d406cd6ead)
 
-See: <https://pytauri.github.io/pytauri/0.5/usage/tutorial/build-standalone-cython/>
+See: <https://eclteam.github.io/PyTauriX/0.5/usage/tutorial/build-standalone-cython/>
 
 ### BREAKING
 
-- [#136](https://github.com/pytauri/pytauri/pull/136) - `tauri v2.5` requires upgrading `@tauri-apps/api: ^2.5` and `tauri-plugin-pytauri-api: ^0.5`.
-- [#141](https://github.com/pytauri/pytauri/pull/141) - feat(pytauri)!: `pytauri.path.PathResolver` now returns a `pathlib.Path` object instead of a `str`.
-- [#133](https://github.com/pytauri/pytauri/pull/133) - fix(pytauri)!: make `BuilderArgs.invoke_handler` as required parameter for #110.
+- [#136](https://github.com/pytauri/pytauri/pull/136) - `tauri v2.5` requires upgrading `@tauri-apps/api: ^2.5` and `@pytaurix/api: ^0.5`.
+- [#141](https://github.com/pytauri/pytauri/pull/141) - feat(pytaurix)!: `pytaurix.path.PathResolver` now returns a `pathlib.Path` object instead of a `str`.
+- [#133](https://github.com/pytauri/pytauri/pull/133) - fix(pytaurix)!: make `BuilderArgs.invoke_handler` as required parameter for #110.
 
     If you do not specify `invoke_handler`,
-    `pytauri` will not register the `tauri-plugin-pytauri` plugin,
+    `pytaurix` will not register the `tauri-plugin-pytaurix` plugin,
     which means you cannot use `pyInvoke` in the frontend to call `Commands`
-    (you will receive an error like ["plugin pytauri not found"]).
+    (you will receive an error like ["plugin pytaurix not found"]).
     If this is indeed the behavior you expect, explicitly pass `None`.
 
-    ["plugin pytauri not found"]: https://github.com/pytauri/pytauri/issues/110
+    ["plugin pytaurix not found"]: https://github.com/ECLteam/PyTauriX/issues/110
 
 ### Added
 
@@ -783,22 +799,22 @@ See: <https://pytauri.github.io/pytauri/0.5/usage/tutorial/build-standalone-cyth
 
 #### Precompiled python wheel (goodbye Rust compiler)
 
-> - [#117](https://github.com/pytauri/pytauri/pull/117) - docs: add usage docs for `pytauri-wheel`
+> - [#117](https://github.com/pytauri/pytauri/pull/117) - docs: add usage docs for `pytaurix-wheel`
 > - [#108](https://github.com/pytauri/pytauri/pull/108) - feat: initial precompiled python wheel support
 
 In `v0.4.0`, we have introduced an exciting new feature: precompiled Python wheel support! 🎉
 
-This means you can use PyTauri without writing any Rust code or needing a Rust compiler.
+This means you can use PyTauriX without writing any Rust code or needing a Rust compiler.
 
 This allows you to perform full-stack development in pure Python (like [`pywebview`](https://github.com/r0x0r/pywebview) but battery-included 🤓).
 
-Please refer to the [PyTauri Wheel documentation](https://pytauri.github.io/pytauri/0.4/usage/pytauri-wheel/) for more information.
+Please refer to the [PyTauriX Wheel documentation](https://eclteam.github.io/PyTauriX/0.4/usage/pytaurix-wheel/) for more information.
 
-#### New logo for PyTauri
+#### New logo for PyTauriX
 
-Thanks to [@ISOR3X](https://github.com/ISOR3X) in [#111](https://github.com/pytauri/pytauri/pull/111)! PyTauri now has its own logo 🎉:
+Thanks to [@ISOR3X](https://github.com/ISOR3X) in [#111](https://github.com/pytauri/pytauri/pull/111)! PyTauriX now has its own logo 🎉:
 
-![pytauri-banner](https://github.com/pytauri/pytauri/raw/06d468a851ad21268df458580fab327e4ab5a941/docs/assets/banner.png)
+![pytaurix-banner](https://github.com/ECLteam/PyTauriX/raw/06d468a851ad21268df458580fab327e4ab5a941/docs/assets/banner.png)
 
 > It is indeed a snake, but not eating a bean, or perhaps it was not intended to be. It is more so a combination of the Tauri logo (two dots with rings around them) and the Python logo (the snake, specifically the head). The left part is more intended to visualize the snake curling around. Perhaps it is a bit too abstract.
 
@@ -810,14 +826,14 @@ Thanks to [@ISOR3X](https://github.com/ISOR3X) in [#111](https://github.com/pyta
 
 - [#119](https://github.com/pytauri/pytauri/pull/119) - ci(rs/release): add `--no-verify` to `cargo publish` so that we can release parallelly.
 - [#113](https://github.com/pytauri/pytauri/pull/113) - ci: add `macos-latest` os in `lint-test` CI.
-- [#111](https://github.com/pytauri/pytauri/pull/111) - docs: added PyTauri logo and updated documentation colors
-- [#103](https://github.com/pytauri/pytauri/pull/103) - chore: transfer repo to `pytauri` org.
+- [#111](https://github.com/pytauri/pytauri/pull/111) - docs: added PyTauriX logo and updated documentation colors
+- [#103](https://github.com/pytauri/pytauri/pull/103) - chore: transfer repo to `pytaurix` org.
 
 ## [0.3.0]
 
 ### Highlights
 
-- [menu](https://tauri.app/learn/window-menu/) and [tray](https://tauri.app/learn/system-tray/) python API bindings, see `pytauri` changelog for more details.
+- [menu](https://tauri.app/learn/window-menu/) and [tray](https://tauri.app/learn/system-tray/) python API bindings, see `pytaurix` changelog for more details.
 
     | tray | menu |
     |:----:|:----:|
@@ -849,14 +865,14 @@ Thanks to [@ISOR3X](https://github.com/ISOR3X) in [#111](https://github.com/pyta
 ### BREAKING
 
 - [#70](https://github.com/pytauri/pytauri/pull/70) - feat(notification): removed `NotificationBuilderArgs`.
-    See `CHANGELOG.md` of `py/pytauri-plugin-notification` for how to migrate.
-- [#57](https://github.com/pytauri/pytauri/pull/57) - refactor(py/pytauri): remove `RunEventEnum`, use matched `RunEvent` directly.
-    See `CHANGELOG.md` of `py/pytauri` for how to migrate.
-- [#56](https://github.com/pytauri/pytauri/pull/56) - perf(pytauri): all IPC methods that previously accepted `bytearray` as a parameter now only accept `bytes` as a parameter.
+    See `CHANGELOG.md` of `py/pytaurix-plugin-notification` for how to migrate.
+- [#57](https://github.com/pytauri/pytauri/pull/57) - refactor(py/pytaurix): remove `RunEventEnum`, use matched `RunEvent` directly.
+    See `CHANGELOG.md` of `py/pytaurix` for how to migrate.
+- [#56](https://github.com/pytauri/pytauri/pull/56) - perf(pytaurix): all IPC methods that previously accepted `bytearray` as a parameter now only accept `bytes` as a parameter.
 - [#52](https://github.com/pytauri/pytauri/pull/52) - refactor(standalone)!: new API for preparing python interpreter.
-    The `pytauri::standalone` module has been completely rewritten.
+    The `pytaurix::standalone` module has been completely rewritten.
     Previously, you used `prepare_freethreaded_python_with_executable` and `append_ext_mod`. Now, you need to use `PythonInterpreterBuilder`.
-    See the `pytauri` crate rust API docs and tutorial (examples/tauri-app) `main.rs` code for more information on how to migrate.
+    See the `pytaurix` crate rust API docs and tutorial (examples/tauri-app) `main.rs` code for more information on how to migrate.
 
 ### Docs
 
@@ -876,15 +892,15 @@ Thanks to [@ISOR3X](https://github.com/ISOR3X) in [#111](https://github.com/pyta
 
 ## [0.1.0-beta]
 
-[unreleased]: https://github.com/pytauri/pytauri/tree/HEAD
-[0.8.0]: https://github.com/pytauri/pytauri/releases/tag/v0.8.0
-[0.7.2]: https://github.com/pytauri/pytauri/releases/tag/v0.7.2
-[0.7.1]: https://github.com/pytauri/pytauri/releases/tag/v0.7.1
-[0.7.0]: https://github.com/pytauri/pytauri/releases/tag/v0.7.0
-[0.6.1]: https://github.com/pytauri/pytauri/releases/tag/v0.6.1
-[0.6.0]: https://github.com/pytauri/pytauri/releases/tag/v0.6.0
-[0.5.0]: https://github.com/pytauri/pytauri/releases/tag/v0.5.0
-[0.4.0]: https://github.com/pytauri/pytauri/releases/tag/v0.4.0
-[0.3.0]: https://github.com/pytauri/pytauri/releases/tag/v0.3.0
-[0.2.0]: https://github.com/pytauri/pytauri/releases/tag/v0.2.0
-[0.1.0-beta]: https://github.com/pytauri/pytauri/releases/tag/v0.1.0-beta
+[unreleased]: https://github.com/ECLteam/PyTauriX/tree/HEAD
+[0.8.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.8.0
+[0.7.2]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.7.2
+[0.7.1]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.7.1
+[0.7.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.7.0
+[0.6.1]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.6.1
+[0.6.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.6.0
+[0.5.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.5.0
+[0.4.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.4.0
+[0.3.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.3.0
+[0.2.0]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.2.0
+[0.1.0-beta]: https://github.com/ECLteam/PyTauriX/releases/tag/v0.1.0-beta

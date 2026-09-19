@@ -1,0 +1,15 @@
+"$schema" = "https://schema.tauri.app/config/2"
+productName = "pytaurix-wheel-app"
+version = "0.1.0"
+identifier = "com.pytaurix-wheel-app.app"
+
+[build]
+frontendDist = "./frontend"
+
+[app]
+withGlobalTauri = true
+
+[[app.windows]]
+title = "pytaurix-wheel-app"
+width = 800
+height = 600

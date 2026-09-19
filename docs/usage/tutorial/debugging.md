@@ -1,12 +1,12 @@
 # Debugging
 
-## PyTauri Runtime
+## PyTauriX Runtime
 
-You can use the following APIs to inspect the current pytauri runtime configuration:
+You can use the following APIs to inspect the current pytaurix runtime configuration:
 
-- [pytauri.IS_DEV][pytauri.IS_DEV]: Indicates if running in `tauri dev` mode
-- [pytauri.VERSION][pytauri.VERSION]: The current version of tauri
-- [pytauri.webview_version][pytauri.webview_version]: The current version of the webview
+- [pytaurix.IS_DEV][pytaurix.IS_DEV]: Indicates if running in `tauri dev` mode
+- [pytaurix.VERSION][pytaurix.VERSION]: The current version of tauri
+- [pytaurix.webview_version][pytaurix.webview_version]: The current version of the webview
 
 ## Debug in VSCode
 
@@ -73,7 +73,7 @@ dev = [
 ]
 ```
 
-1. This is the version at the time of writing this tutorial. There may be a newer version of pytauri available when you use it.
+1. This is the version at the time of writing this tutorial. There may be a newer version of pytaurix available when you use it.
 
 #### Configure `settings.json`
 
@@ -96,22 +96,22 @@ Add the following configuration:
 Add the following code to your app:
 
 ```python title="src-tauri/python/tauri_app/__main__.py"
---8<-- "docs_src/tutorial/debugging/__main__.py"
+--8<-- "docs/snippets/tutorial/debugging/__main__.py"
 ```
 
 Start your app:
 
 === "windows"
     ```powershell
-    $env:PYTAURI_DEBUG_PY = "1"
-    $env:PYTAURI_DEBUG_RS = "1"
+    $env:PYTAURIX_DEBUG_PY = "1"
+    $env:PYTAURIX_DEBUG_RS = "1"
     pnpm tauri dev
     ```
 
 === "unix"
     ```bash
-    export PYTAURI_DEBUG_PY="1"
-    export PYTAURI_DEBUG_RS="1"
+    export PYTAURIX_DEBUG_PY="1"
+    export PYTAURIX_DEBUG_RS="1"
     pnpm tauri dev
     ```
 

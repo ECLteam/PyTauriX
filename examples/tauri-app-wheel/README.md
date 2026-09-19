@@ -1,12 +1,12 @@
-# PyTauri-Wheel+ Vanilla TS
+# PyTauriX-Wheel+ Vanilla TS
 
-`pytauri-wheel` provides precompiled dynamic libraries, so you no longer need a Rust compiler. You can run Tauri applications with just Python.
+`pytaurix-wheel` provides precompiled dynamic libraries, so you no longer need a Rust compiler. You can run Tauri applications with just Python.
 
 ---
 
 ```bash
-git clone https://github.com/pytauri/pytauri.git
-cd pytauri
+git clone https://github.com/ECLteam/PyTauriX.git
+cd pytaurix
 
 # build frontend assets
 pnpm install
@@ -17,9 +17,9 @@ uv venv
 source .venv/bin/activate
 # or powershell: .venv\Scripts\Activate.ps1
 
-# This step will compile `pytauri-wheel` locally (requires Rust compiler),
-# or you can download the precompiled `pytauri-wheel` from PyPi.
-uv pip install --reinstall -e python/pytauri-wheel
+# This step will compile `pytaurix-wheel` locally (requires Rust compiler),
+# or you can download the precompiled `pytaurix-wheel` from PyPi.
+uv pip install --reinstall -e python/pytaurix-wheel
 
 cd examples/tauri-app-wheel
 

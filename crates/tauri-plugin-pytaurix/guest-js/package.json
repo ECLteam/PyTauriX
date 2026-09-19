@@ -1,0 +1,27 @@
+{
+  "name": "@pytaurix/api",
+  "version": "0.1.0-alpha.1",
+  "description": "js api for crate tauri-plugin-pytaurix",
+  "license": "Apache-2.0",
+  "repository": "github:ECLteam/PyTauriX",
+  "contributors": [
+    "Sean Wang <126865849+WSH032@users.noreply.github.com>"
+  ],
+  "types": "module",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "./dist/index.d.ts",
+    "./dist/index.js",
+    "./dist/index.cjs"
+  ],
+  "scripts": {
+    "build": "rollup -c --configPlugin typescript"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "catalog:"
+  }
+}

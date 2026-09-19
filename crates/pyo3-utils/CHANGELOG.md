@@ -6,7 +6,7 @@
 
 ### BREAKING
 
-- [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytauri): add `WebviewWindowBuilder` bindings.
+- [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytaurix): add `WebviewWindowBuilder` bindings.
 
     The `#[default]` attribute in `crate::from_py_dict::derive_from_py_dict!` has been renamed to `#[pyo3(default)]`:
 
@@ -18,13 +18,13 @@
     });
     ```
 
-- [#259](https://github.com/pytauri/pytauri/pull/259) - feat(pytauri): more `WebviewWindow` and `AppHandle` bindings.
+- [#259](https://github.com/pytauri/pytauri/pull/259) - feat(pytaurix): more `WebviewWindow` and `AppHandle` bindings.
 
     Removed `impl IntoPyObject for from_py_dict::NotRequired<T>` in favor of `#[pyo3(into_py_with)]` and `NotRequired::{into_py_with, into_py_with_none, into_py_with_default, into_py_with_err}`.
 
 ### Added
 
-- [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytauri): add `WebviewWindowBuilder` bindings.
+- [#265](https://github.com/pytauri/pytauri/pull/265) - feat(pytaurix): add `WebviewWindowBuilder` bindings.
 
     `crate::from_py_dict::derive_from_py_dict!` now supports optional `#[cfg(...)]` attribute on fields,
     but must be before `#[pyo3(default)]`:
@@ -78,9 +78,9 @@
 
 ## [0.1.0-beta.0]
 
-[unreleased]: https://github.com/pytauri/pytauri/tree/HEAD
-[0.4.0]: https://github.com/pytauri/pytauri/releases/tag/rs/pyo3-utils/v0.4.0
-[0.3.0]: https://github.com/pytauri/pytauri/releases/tag/rs/pyo3-utils/v0.3.0
-[0.2.0]: https://github.com/pytauri/pytauri/releases/tag/rs/pyo3-utils/v0.2.0
-[0.1.0]: https://github.com/pytauri/pytauri/releases/tag/rs/pyo3-utils/v0.1.0
-[0.1.0-beta.0]: https://github.com/pytauri/pytauri/releases/tag/rs/pyo3-utils/v0.1.0-beta.0
+[unreleased]: https://github.com/ECLteam/PyTauriX/tree/HEAD
+[0.4.0]: https://github.com/ECLteam/PyTauriX/releases/tag/rs/pyo3-utils/v0.4.0
+[0.3.0]: https://github.com/ECLteam/PyTauriX/releases/tag/rs/pyo3-utils/v0.3.0
+[0.2.0]: https://github.com/ECLteam/PyTauriX/releases/tag/rs/pyo3-utils/v0.2.0
+[0.1.0]: https://github.com/ECLteam/PyTauriX/releases/tag/rs/pyo3-utils/v0.1.0
+[0.1.0-beta.0]: https://github.com/ECLteam/PyTauriX/releases/tag/rs/pyo3-utils/v0.1.0-beta.0

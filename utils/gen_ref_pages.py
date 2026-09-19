@@ -65,7 +65,7 @@ for project in (ROOT / "python").iterdir():
         project_src = project / "src"
 
     for path in sorted(project_src.rglob("*.py")):
-        # e.g., `pytauri/__init__.py`
+        # e.g., `pytaurix/__init__.py`
         relative_path = path.relative_to(project_src)
 
         module_path = relative_path.with_suffix("")
@@ -98,7 +98,7 @@ for project in (ROOT / "python").iterdir():
             fd.writelines(f"::: {ident}")
 
         # The base edit path is set in the `mkdocs.yml`:
-        # e.g., `https://github.com/pytauri/pytauri/edit/main/docs/`.
+        # e.g., `https://github.com/ECLteam/PyTauriX/edit/main/docs/`.
         # Since these api reference(code) are not actually in the `docs` directory,
         # but are inlined in the `*.py` code, we need `"../"` to remove the `docs/` path
         mkdocs_gen_files.set_edit_path(

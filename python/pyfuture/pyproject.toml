@@ -10,8 +10,8 @@ requires-python = ">=3.9"
 
 dependencies = ["anyio >= 4", "exceptiongroup >= 1", "typing-extensions >= 4"]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     # testing
     "pytest == 8.*",
     "anyio[trio] >= 4",

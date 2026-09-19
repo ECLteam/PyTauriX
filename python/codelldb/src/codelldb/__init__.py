@@ -44,7 +44,6 @@ import json
 import socket
 from os import getpid
 from textwrap import dedent
-from typing import Optional
 
 __all__ = ["debug"]
 
@@ -53,7 +52,7 @@ class DebugError(Exception):
     pass
 
 
-def debug(host: str, port: int, token: Optional[str] = None) -> None:
+def debug(host: str, port: int, token: str | None = None) -> None:
     """Launch CodeLLDB to debug rust code.
 
     Raises:

@@ -1,0 +1,1 @@
+--8<-- "crates/tauri-plugin-pytaurix/CHANGELOG.md"

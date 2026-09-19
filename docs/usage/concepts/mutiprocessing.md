@@ -1,8 +1,8 @@
 # Using Multiprocessing
 
-When building as a `standalone` app, `pytauri` will automatically configure the following to support the use of [multiprocessing][]:
+When building as a `standalone` app, `pytaurix` will automatically configure the following to support the use of [multiprocessing][]:
 
-> ref: [pytauri::standalone::PythonInterpreterBuilder](https://docs.rs/pytauri/0.2.0/pytauri/standalone/struct.PythonInterpreterBuilder.html#behavior)
+> ref: [pytaurix::standalone::PythonInterpreterBuilder](https://docs.rs/pytaurix/0.2.0/pytaurix/standalone/struct.PythonInterpreterBuilder.html#behavior)
 
 - Set `sys.frozen` to `True`
 - Call [multiprocessing.set_start_method][] with

@@ -2,7 +2,7 @@
 
 ## setuptools-rust
 
-When you want to distribute your app in Python format, you need to compile pytauri into a Python extension module file, instead of providing it in memory through `pytauri::standalone` in the `main.rs` executable.
+When you want to distribute your app in Python format, you need to compile pytaurix into a Python extension module file, instead of providing it in memory through `pytaurix::standalone` in the `main.rs` executable.
 
 To do this, we need to use [setuptools-rust](https://github.com/PyO3/setuptools-rust).
 
@@ -17,7 +17,7 @@ build-backend = "setuptools.build_meta"
 And add the following file:
 
 ```python title="src-tauri/setup.py"
---8<-- "docs_src/tutorial/build_sdist/setup.py"
+--8<-- "docs/snippets/tutorial/build_sdist/setup.py"
 ```
 
 ## Include frontend assets
@@ -27,7 +27,7 @@ You need to include the frontend assets in the sdist so that users can build you
 Configure Vite to output the frontend assets to `src-tauri/frontend`:
 
 ```ts title="vite.config.ts"
---8<-- "docs_src/tutorial/build_sdist/vite.config.ts"
+--8<-- "docs/snippets/tutorial/build_sdist/vite.config.ts"
 ```
 
 Also, let tauri-cli know where the frontend assets are:

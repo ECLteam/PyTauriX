@@ -1,8 +1,8 @@
 # Build Standalone Binary
 
-pytauri can be distributed as a Python wheel or compiled into a standalone executable (a regular Tauri application).
+pytaurix can be distributed as a Python wheel or compiled into a standalone executable (a regular Tauri application).
 
-Unlike packaging with `pyinstaller` after building as a wheel, compiling pytauri into an executable allows you to enjoy all the benefits brought by `tauri-cli`.
+Unlike packaging with `pyinstaller` after building as a wheel, compiling pytaurix into an executable allows you to enjoy all the benefits brought by `tauri-cli`.
 
 ## Get portable Python
 
@@ -65,7 +65,7 @@ Tell `tauri-cli` to ignore it during `tauri dev`:
 
 === "windows"
     ```powershell
-    $env:PYTAURI_STANDALONE="1"  # see `setup.py`
+    $env:PYTAURIX_STANDALONE="1"  # see `setup.py`
 
     # `tauri-app` is your python package name.
     uv pip install `
@@ -77,7 +77,7 @@ Tell `tauri-cli` to ignore it during `tauri dev`:
 
 === "unix"
     ```bash
-    export PYTAURI_STANDALONE="1"  # see `setup.py`
+    export PYTAURIX_STANDALONE="1"  # see `setup.py`
 
     # `tauri-app` is your python package name.
     uv pip install \
@@ -164,7 +164,7 @@ Configure `RUSTFLAGS`:
 
         !!! bug "Patch `install_name` for `libpython3.*.dylib` of `python-build-standalone`"
 
-            See: <https://github.com/pytauri/pytauri/issues/99#issuecomment-2704556726>.
+            See: <https://github.com/ECLteam/PyTauriX/issues/99#issuecomment-2704556726>.
 
             The `install_name` of `libpython3.*.dylib` built by `python-build-standalone` [does not include `@rpath`](https://github.com/astral-sh/python-build-standalone/blob/d0ed97f7618769996f1dd2a586faec150d7ebcb9/cpython-unix/build-cpython.sh#L611-L624), which makes the `rpath` set for the executable ineffective.
 

@@ -3,50 +3,54 @@ members = [
     "crates/*",
     "examples/tauri-app/src-tauri",
     "examples/nicegui-app",
-    "tests/pytauri-test",
-    "python/pytauri-wheel",
+    "tests/pytaurix-test",
+    "python/pytaurix-wheel",
 ]
 resolver = "2"
 
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 edition = "2021"
 license = "Apache-2.0"
-rust-version = "1.82"
-repository = "https://github.com/pytauri/pytauri/"
-homepage = "https://github.com/pytauri/pytauri/"
+rust-version = "1.83"
+repository = "https://github.com/ECLteam/PyTauriX/"
+homepage = "https://github.com/ECLteam/PyTauriX/"
 authors = ["Sean Wang <126865849+WSH032@users.noreply.github.com>"]
 
 
 [workspace.dependencies]
-pyo3 = { version = "0.25" }
-pyo3-build-config = { version = "0.25" }
-pythonize = { version = "0.25" }
+pyo3 = { version = "=0.29.2" }
+pyo3-build-config = { version = "=0.29.2" }
+pythonize = { version = "0.29" }
 
-tauri = { version = "2.8" }
-tauri-build = { version = "2.4" }
-tauri-plugin = { version = "2.4" }
+tauri = { version = "=2.11.5" }
+tauri-build = { version = "=2.6.3" }
+tauri-plugin = { version = "=2.6.3" }
 
-tauri-plugin-opener = { version = "2.5" }
-tauri-plugin-clipboard-manager = { version = "2.3" }
-tauri-plugin-dialog = { version = "2.3" }
-tauri-plugin-fs = { version = "2.4" }
-tauri-plugin-notification = { version = "2.3" }
-tauri-plugin-autostart = { version = "2.5" }
-tauri-plugin-deep-link = { version = "2.4" }
-tauri-plugin-upload = { version = "2.3" }
-tauri-plugin-websocket = { version = "2.4" }
-tauri-plugin-http = { version = "2.5" }
-tauri-plugin-os = { version = "2.3" }
-tauri-plugin-persisted-scope = { version = "2.3" }
-tauri-plugin-positioner = { version = "2.3" }
-tauri-plugin-process = { version = "2.3" }
-tauri-plugin-shell = { version = "2.3" }
-tauri-plugin-single-instance = { version = "2.3" }
-tauri-plugin-updater = { version = "2.9" }
-tauri-plugin-window-state = { version = "2.4" }
-tauri-plugin-global-shortcut = { version = "2.3" }
+tauri-plugin-opener = { version = "=2.5.4" }
+tauri-plugin-clipboard-manager = { version = "=2.3.2" }
+tauri-plugin-dialog = { version = "=2.7.2" }
+tauri-plugin-fs = { version = "=2.5.1" }
+tauri-plugin-notification = { version = "=2.3.3" }
+tauri-plugin-autostart = { version = "=2.5.1" }
+tauri-plugin-deep-link = { version = "=2.4.9" }
+tauri-plugin-upload = { version = "=2.4.0" }
+tauri-plugin-websocket = { version = "=2.4.2" }
+tauri-plugin-http = { version = "=2.5.9" }
+tauri-plugin-os = { version = "=2.3.2" }
+tauri-plugin-persisted-scope = { version = "=2.3.7" }
+tauri-plugin-positioner = { version = "=2.3.3" }
+tauri-plugin-process = { version = "=2.3.1" }
+tauri-plugin-shell = { version = "=2.3.5" }
+tauri-plugin-single-instance = { version = "=2.4.3" }
+tauri-plugin-updater = { version = "=2.10.1" }
+tauri-plugin-window-state = { version = "=2.4.1" }
+tauri-plugin-global-shortcut = { version = "=2.3.2" }
+tauri-plugin-log = { version = "=2.7.0" }
+tauri-plugin-store = { version = "=2.4.0" }
+tauri-plugin-stronghold = { version = "=2.3.0" }
+tauri-plugin-cli = { version = "=2.3.0" }
 
 serde = { version = "1" }
 serde_json = { version = "1" }
@@ -58,22 +62,22 @@ dunce = { version = "1", default-features = false }
 tokio = { version = "1", default-features = false }
 
 # ❗ when bumping, remember to update workspace dependencies
-tauri-plugin-pytauri = { path = "crates/tauri-plugin-pytauri", version = "0.8" }
-pytauri-core = { path = "crates/pytauri-core", version = "0.8" }
-pytauri = { path = "crates/pytauri", version = "0.8" }
+tauri-plugin-pytaurix = { path = "crates/tauri-plugin-pytaurix", version = "0.1.0-alpha.1" }
+pytaurix-core = { path = "crates/pytaurix-core", version = "0.1.0-alpha.1" }
+pytaurix = { path = "crates/pytaurix", version = "0.1.0-alpha.1" }
 pyo3-utils = { path = "crates/pyo3-utils", version = "0.4" }
 
 [patch.crates-io]
-# 👇 for `pytauri-wheel` workspace dependencies.
+# 👇 for `pytaurix-wheel` workspace dependencies.
 #
-# # Why don't we use `path` directly in `pytauri-wheel/Cargo.toml`:
+# # Why don't we use `path` directly in `pytaurix-wheel/Cargo.toml`:
 #
 # This is because when building `wheel` from `sdist`, Cargo will follow these `path`,
 # but these workspace dependencies are not packaged in `sdist`.
-# By patching outside the `pytauri-wheel` crate, we ensure that `path` is only effective during development.
-pytauri = { path = "crates/pytauri" }
-pytauri-core = { path = "crates/pytauri-core" }
-tauri-plugin-pytauri = { path = "crates/tauri-plugin-pytauri" }
+# By patching outside the `pytaurix-wheel` crate, we ensure that `path` is only effective during development.
+pytaurix = { path = "crates/pytaurix" }
+pytaurix-core = { path = "crates/pytaurix-core" }
+tauri-plugin-pytaurix = { path = "crates/tauri-plugin-pytaurix" }
 pyo3-utils = { path = "crates/pyo3-utils" }
 # 👆
 

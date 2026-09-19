@@ -1,10 +1,6 @@
-name: Publish javascript 🟢‌ package to npmjs 📦
+name: Build internal JavaScript preview artifacts
 
 on:
-  push:
-    tags:
-      # e.g., js/tauri-plugin-pytauri-api/v0.1.0
-      - js/*/v*
   workflow_dispatch:
     inputs:
       release_tag:
@@ -53,6 +49,7 @@ jobs:
         run: python ./release.py ${{ env.RELEASE_TAG }}
 
   publish:
+    if: ${{ false }} # Alpha releases must not reach public registries.
     needs:
       - dry-run
     name: Publish to npmjs 📦
@@ -95,6 +92,7 @@ jobs:
         run: python ./release.py --no-dry-run ${{ env.RELEASE_TAG }}
 
   github-release:
+    if: ${{ false }} # Internal preview artifacts remain workflow artifacts.
     needs:
       - publish
     name: Create GitHub release 🏷️

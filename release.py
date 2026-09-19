@@ -1,6 +1,6 @@
 # ruff: noqa: D101, D102, D103
 
-"""Release pytauri workspace package.
+"""Release PyTauriX workspace package.
 
 Accepts a string as a parameter, e.g. "rs:pyo3-utils:v0.1.0", with parts separated by `/`.
 
@@ -63,7 +63,7 @@ class ReleaseTag(NamedTuple):
             print(f"version={self.version}", file=f)
 
 
-parser = argparse.ArgumentParser(description="Release pytauri workspace package.")
+parser = argparse.ArgumentParser(description="Release PyTauriX workspace package.")
 parser.add_argument(
     "release_tag",
     type=ReleaseTag.parse,
@@ -132,6 +132,7 @@ async def release_py(package: str, no_dry_run: bool) -> int:
 async def release_js(package: str, no_dry_run: bool) -> int:
     # <https://pnpm.io/cli/publish>
 
+    package = {"pytaurix-api": "@pytaurix/api"}.get(package, package)
     args = [
         "publish",
         "--filter",

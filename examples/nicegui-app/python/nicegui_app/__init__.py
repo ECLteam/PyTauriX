@@ -1,10 +1,10 @@
 from os import environ
 
-# This is an env var that can only be used internally by pytauri to distinguish
+# This is an env var that can only be used internally by pytaurix to distinguish
 # between different example extension modules.
 # You don't need and shouldn't set this in your own app.
-# Must be set before importing any pytauri module.
-environ["_PYTAURI_DIST"] = "nicegui-app"
+# Must be set before importing any pytaurix module.
+environ["_PYTAURIX_DIST"] = "nicegui-app"
 
 import sys
 from collections.abc import Callable
@@ -13,14 +13,14 @@ import uvicorn
 from anyio.from_thread import start_blocking_portal
 from fastapi import FastAPI
 from nicegui import ui
-from pytauri import (
+from pytaurix import (
     AppHandle,
     Manager,
     builder_factory,
     context_factory,
 )
-from pytauri.webview import WebviewWindow
-from pytauri_plugins.notification import NotificationExt
+from pytaurix.plugins.notification import NotificationExt
+from pytaurix.webview import WebviewWindow
 
 from nicegui_app._server import FrontServer
 from nicegui_app._tray_menu import init_menu, init_tray

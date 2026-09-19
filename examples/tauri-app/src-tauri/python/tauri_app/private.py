@@ -1,4 +1,4 @@
-"""This is an example to demonstrate how to use Cython to protect your source code in a pytauri standalone app."""
+"""This is an example to demonstrate how to use Cython to protect your source code in a pytaurix standalone app."""
 
 
 def private_algorithm(data: int) -> int:

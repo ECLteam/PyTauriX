@@ -5,13 +5,13 @@ use pyo3::prelude::*;
 #[pyclass(subclass)]
 pub struct PyFuture {
     #[pyo3(get)]
-    awaitable: PyObject,
+    awaitable: Py<PyAny>,
     waker: Waker,
-    result: Option<PyResult<PyObject>>,
+    result: Option<PyResult<Py<PyAny>>>,
 }
 
 impl PyFuture {
-    pub(crate) const fn new(awaitable: PyObject, waker: Waker) -> Self {
+    pub(crate) const fn new(awaitable: Py<PyAny>, waker: Waker) -> Self {
         Self {
             awaitable,
             waker,
@@ -27,20 +27,20 @@ impl PyFuture {
         self.waker.clone_from(waker);
     }
 
-    pub(crate) fn result_as_ref(&self) -> Option<&PyResult<PyObject>> {
+    pub(crate) fn result_as_ref(&self) -> Option<&PyResult<Py<PyAny>>> {
         self.result.as_ref()
     }
 
     // // we don't need yet, just leave it here for future use
     //
-    // pub(crate) fn result_as_mut(&mut self) -> Option<&mut PyResult<PyObject>> {
+    // pub(crate) fn result_as_mut(&mut self) -> Option<&mut PyResult<Py<PyAny>>> {
     //     self.result.as_mut()
     // }
 }
 
 #[pymethods]
 impl PyFuture {
-    fn set_result(&mut self, result: PyObject) {
+    fn set_result(&mut self, result: Py<PyAny>) {
         self.result = Some(Ok(result));
         self.wake();
     }

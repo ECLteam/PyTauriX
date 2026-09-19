@@ -77,7 +77,7 @@ impl UnsafeUngilExt for Python<'_> {
         T: Ungil,
     {
         let unsafe_ungil = UnsafeUngil::new(ungil);
-        self.allow_threads(move || {
+        self.detach(move || {
             let unsafe_ungil = unsafe_ungil;
             f(unsafe_ungil.0)
         })

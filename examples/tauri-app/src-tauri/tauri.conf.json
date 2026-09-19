@@ -8,7 +8,7 @@
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "pnpm build",
     "frontendDist": "./frontend",
-    "features": ["pytauri/standalone"]
+    "features": ["pytaurix/standalone"]
   },
   "app": {
     "withGlobalTauri": true,

@@ -6,7 +6,7 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "pytauri:default",
+    "pytaurix:default",
     "notification:default"
   ]
 }

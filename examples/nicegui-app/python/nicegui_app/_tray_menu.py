@@ -1,9 +1,9 @@
-from pytauri import (
+from pytaurix import (
     AppHandle,
 )
-from pytauri.menu import Menu, MenuEvent, MenuItem, PredefinedMenuItem
-from pytauri.tray import MouseButton, TrayIcon, TrayIconEvent, TrayIconEventType
-from pytauri.webview import WebviewWindow
+from pytaurix.menu import Menu, MenuEvent, MenuItem, PredefinedMenuItem
+from pytaurix.tray import MouseButton, TrayIcon, TrayIconEvent, TrayIconEventType
+from pytaurix.webview import WebviewWindow
 
 __all__ = ["init_menu", "init_tray"]
 

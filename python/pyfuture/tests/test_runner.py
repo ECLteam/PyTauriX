@@ -2,7 +2,7 @@
 # ruff: noqa: D100, D103
 
 from collections.abc import Awaitable
-from typing import Optional
+from typing import Self
 
 import pytest
 from anyio import Event
@@ -10,7 +10,6 @@ from pyfuture import (
     RunnerBuilder,
     _PyRunnerProto,  # pyright: ignore[reportPrivateUsage]
 )
-from typing_extensions import Self
 
 
 @pytest.mark.anyio
@@ -21,7 +20,7 @@ async def test_runner_builder() -> None:
     mock_result = Result()
 
     class MockPyFuture:
-        result: Optional[Result] = None
+        result: Result | None = None
 
         @property
         def awaitable(self) -> Awaitable[Result]:

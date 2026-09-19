@@ -4,17 +4,17 @@
     **See [concepts/ipc](../concepts/ipc.md) for more information.**
 
 !!! tip
-    **Also, see [Async Recipes](../concepts/async.md) for how to work smoothly with asynchronous PyTauri.**
+    **Also, see [Async Recipes](../concepts/async.md) for how to work smoothly with asynchronous PyTauriX.**
 
 ---
 
-pytauri implements the same IPC API as tauri. You can use it through [pytauri.Commands][].
+pytaurix implements the same IPC API as tauri. You can use it through [pytaurix.Commands][].
 
-This tutorial will demonstrate how to use pytauri's IPC API by rewriting the `fn greet` command in `src-tauri/src/lib.rs` in Python.
+This tutorial will demonstrate how to use pytaurix's IPC API by rewriting the `fn greet` command in `src-tauri/src/lib.rs` in Python.
 
-## Enable pytauri ipc permission
+## Enable pytaurix ipc permission
 
-pytauri internally implements IPC through `tauri-plugin-pytauri`.
+pytaurix internally implements IPC through `tauri-plugin-pytaurix`.
 You need to add it to the dependencies so that you can enable its permission in tauri.
 
 ```toml title="src-tauri/Cargo.toml"
@@ -22,10 +22,10 @@ You need to add it to the dependencies so that you can enable its permission in 
 
 [dependencies]
 # ...
-tauri-plugin-pytauri = { version = "0.8" }  # (1)!
+tauri-plugin-pytaurix = { version = "0.8" }  # (1)!
 ```
 
-1. This is the version at the time of writing this tutorial. There may be a newer version of pytauri available when you use it.
+1. This is the version at the time of writing this tutorial. There may be a newer version of pytaurix available when you use it.
 
 Refer to <https://tauri.app/security/capabilities/> to add the permission:
 
@@ -34,7 +34,7 @@ Refer to <https://tauri.app/security/capabilities/> to add the permission:
     // ...
     "permissions": [
         // ...
-        "pytauri:default"
+        "pytaurix:default"
     ]
 }
 ```
@@ -43,7 +43,7 @@ Refer to <https://tauri.app/security/capabilities/> to add the permission:
 
 ### install dependencies
 
-pytauri relies on [pydantic](https://github.com/pydantic/pydantic) for serialization and validation, and on [anyio](https://github.com/agronholm/anyio) for `asyncio`/`trio` support.
+pytaurix relies on [pydantic](https://github.com/pydantic/pydantic) for serialization and validation, and on [anyio](https://github.com/agronholm/anyio) for `asyncio`/`trio` support.
 
 Therefore, you need to install these dependencies:
 
@@ -67,23 +67,23 @@ dependencies = [
 see [concepts/ipc](../concepts/ipc.md) for more information.
 
 ```python title="src-tauri/python/tauri_app/__init__.py"
---8<-- "docs_src/tutorial/invoke_handler.py:command"
+--8<-- "docs/snippets/tutorial/invoke_handler.py:command"
 ```
 
 ### generate invoke handler for app
 
 ```python title="src-tauri/python/tauri_app/__init__.py"
---8<-- "docs_src/tutorial/invoke_handler.py"
+--8<-- "docs/snippets/tutorial/invoke_handler.py"
 ```
 
 ## IPC in JavaScript
 
-pytauri provides an API similar to the [`invoke`](https://tauri.app/reference/javascript/api/namespacecore/#invoke) function in `@tauri-apps/api/core` through `tauri-plugin-pytauri-api`.
+pytaurix provides an API similar to the [`invoke`](https://tauri.app/reference/javascript/api/namespacecore/#invoke) function in `@tauri-apps/api/core` through `@pytaurix/api`.
 
-First, install it: `#!bash pnpm add tauri-plugin-pytauri-api`.
+First, install it: `#!bash pnpm add @pytaurix/api`.
 
 Now, you can invoke the command from your JavaScript code:
 
 ```ts title="src/main.ts"
---8<-- "docs_src/tutorial/cammand.ts:invoke"
+--8<-- "docs/snippets/tutorial/cammand.ts:invoke"
 ```

@@ -19,7 +19,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 # the same as the package name
 name = "nicegui-app"
 path = "src/main.rs"
-required-features = ["pytauri/standalone"]
+required-features = ["pytaurix/standalone"]
 
 
 [build-dependencies]
@@ -32,6 +32,6 @@ serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 
 pyo3 = { workspace = true }
-pytauri = { workspace = true, features = ["plugin-notification"] }
-tauri-plugin-pytauri = { workspace = true }
+pytaurix = { workspace = true, features = ["plugin-notification"] }
+tauri-plugin-pytaurix = { workspace = true }
 tauri-plugin-notification = { workspace = true }

@@ -9,16 +9,15 @@ from types import TracebackType
 from typing import (
     Any,
     Generic,
-    Optional,
     Protocol,
+    Self,
 )
 from weakref import ReferenceType, ref
 
 from anyio import CancelScope, create_task_group, get_cancelled_exc_class
 from anyio.abc import TaskGroup
 from anyio.from_thread import BlockingPortal, start_blocking_portal
-from exceptiongroup import BaseExceptionGroup
-from typing_extensions import Self, TypeVar
+from typing_extensions import TypeVar
 
 __all__ = ["RunnerBuilder", "create_runner_builder"]
 
@@ -69,9 +68,9 @@ class _RunnerStack(Generic[_RunnerTypeVar]):
     # NOTE: Must ensure calling `close` method of each runner
     def __exit__(
         self,
-        _exc_type: Optional[type[BaseException]],
-        exc: Optional[BaseException],
-        _tb: Optional[TracebackType],
+        _exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        _tb: TracebackType | None,
     ):
         excs_when_closing: list[BaseException] = []
         while self._runner_stack:
@@ -215,7 +214,7 @@ class RunnerBuilder:
 
         return self
 
-    async def __aexit__(self, *exc_info: Any) -> Optional[bool]:
+    async def __aexit__(self, *exc_info: Any) -> bool | None:
         return await self._exit_stack.__aexit__(*exc_info)
 
     def build(self, runner_cls: type[_RunnerTypeVar]) -> _RunnerTypeVar:
@@ -234,7 +233,7 @@ class RunnerBuilder:
 
 @contextmanager
 def create_runner_builder(
-    backend: str = "asyncio", backend_options: Optional[dict[str, Any]] = None
+    backend: str = "asyncio", backend_options: dict[str, Any] | None = None
 ) -> Generator[RunnerBuilder, Any, None]:
     """Launch an async event in another thread, and create a `RunnerBuilder` in it.
 

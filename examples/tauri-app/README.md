@@ -1,4 +1,4 @@
-# PyTauri + Vanilla TS
+# PyTauriX + Vanilla TS
 
 ```bash
 cd examples/tauri-app
@@ -15,8 +15,8 @@ or you are hurry, just wanna see/run the demo:
 > You can find that in tutorial section in Documentation.
 
 ```bash
-git clone https://github.com/pytauri/pytauri.git
-cd pytauri
+git clone https://github.com/ECLteam/PyTauriX.git
+cd pytaurix
 
 cd examples/tauri-app
 

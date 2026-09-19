@@ -40,10 +40,10 @@ jobs:
       - name: pnpm build frontend
         run: |
           pnpm --fail-if-no-match \
-              -F ./crates/tauri-plugin-pytauri/guest-js \
+              -F ./crates/tauri-plugin-pytaurix/guest-js \
               build
 
       - name: preview-publish
         run: |
           pnpm dlx pkg-pr-new publish --compact --pnpm \
-              ./crates/tauri-plugin-pytauri/guest-js
+              ./crates/tauri-plugin-pytaurix/guest-js

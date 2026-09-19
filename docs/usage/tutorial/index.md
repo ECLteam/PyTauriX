@@ -1,7 +1,7 @@
 # Prerequisites
 
 !!! info "For Pythoneer"
-    For pure Python (i.e., without Rust) development, you might prefer to use [pytauri-wheel](../pytauri-wheel/index.md) ✨.
+    For pure Python (i.e., without Rust) development, you might prefer to use [pytaurix-wheel](../pytaurix-wheel/index.md) ✨.
 
 ---
 
@@ -34,7 +34,7 @@ We support all Python versions that are currently in their lifecycle[^requires-p
     To install the Python shared library on RPM based distributions (e.g. Fedora, Red Hat, SuSE), install the `python3-devel` package.
 
 [^requires-python]:
-    We typically (though sometimes earlier) drop support for a python version in the next pytauri minor release after it reaches end-of-life.
+    We typically (though sometimes earlier) drop support for a python version in the next pytaurix minor release after it reaches end-of-life.
 
 ## Rust
 

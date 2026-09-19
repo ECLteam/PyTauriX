@@ -3,10 +3,11 @@
 use std::borrow::{Cow, ToOwned};
 
 use pyo3::{
-    conversion::{FromPyObjectBound, IntoPyObjectExt as _},
+    conversion::IntoPyObjectExt as _,
     exceptions::PyTypeError,
     prelude::*,
     types::{PyDict, PyString},
+    Borrowed,
 };
 
 /// Inspired by [`typing.NotRequired`](https://docs.python.org/3/library/typing.html#typing.NotRequired)
@@ -22,13 +23,14 @@ impl<T> Default for NotRequired<T> {
     }
 }
 
-impl<'py, T> FromPyObject<'py> for NotRequired<T>
+impl<'a, 'py, T> FromPyObject<'a, 'py> for NotRequired<T>
 where
-    for<'a, 'py_a> T: FromPyObjectBound<'a, 'py_a>,
+    T: FromPyObject<'a, 'py>,
 {
-    fn extract_bound(ob: &Bound<'py, PyAny>) -> PyResult<Self> {
-        let value = ob.extract::<T>()?;
-        Ok(NotRequired(Some(value)))
+    type Error = T::Error;
+
+    fn extract(ob: Borrowed<'a, 'py, PyAny>) -> Result<Self, Self::Error> {
+        T::extract(ob).map(|value| NotRequired(Some(value)))
     }
 }
 
@@ -90,7 +92,7 @@ where
     pub fn into_py_with_err(slf: Cow<'_, Self>, py: Python<'py>) -> PyResult<Bound<'py, PyAny>> {
         fn not_required_into_pyobject_err(py: Python<'_>) -> PyResult<Bound<'_, PyAny>> {
             const NOT_REQUIRED_INTO_PYOBJECT_ERR: &str =
-                "`NotRequired` value does not exist, cannot convert to PyObject";
+                "`NotRequired` value does not exist, cannot convert to Py<PyAny>";
 
             Err(PyTypeError::new_err(
                 pyo3::intern!(py, NOT_REQUIRED_INTO_PYOBJECT_ERR)
@@ -115,10 +117,10 @@ pub fn __get_item_with_default<T>(
     key: &Bound<'_, PyString>,
 ) -> PyResult<T>
 where
-    for<'a, 'py> T: FromPyObjectBound<'a, 'py> + Default,
+    for<'a, 'py> T: FromPyObject<'a, 'py> + Default,
 {
     let value = match dict.get_item(key)? {
-        Some(value) => value.extract::<T>()?,
+        Some(value) => value.extract::<T>().map_err(Into::into)?,
         None => Default::default(),
     };
     Ok(value)
@@ -127,9 +129,13 @@ where
 #[doc(hidden)]
 pub fn __get_item<T>(dict: &Bound<'_, PyDict>, key: &Bound<'_, PyString>) -> PyResult<T>
 where
-    for<'a, 'py> T: FromPyObjectBound<'a, 'py>,
+    for<'a, 'py> T: FromPyObject<'a, 'py>,
 {
-    let value = dict.as_any().get_item(key)?.extract::<T>()?;
+    let value = dict
+        .as_any()
+        .get_item(key)?
+        .extract::<T>()
+        .map_err(Into::into)?;
     Ok(value)
 }
 
@@ -184,7 +190,7 @@ fn main() -> PyResult<()> {
     });
 
     pyo3::prepare_freethreaded_python();
-    Python::with_gil(|py| {
+    Python::attach(|py| {
         // optional default `b`
         let dict_0 = [("a", 1)].into_py_dict(py)?;
         let foo_0 = Foo::from_py_dict(&dict_0)?;

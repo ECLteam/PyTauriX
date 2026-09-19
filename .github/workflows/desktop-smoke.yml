@@ -1,0 +1,40 @@
+name: Desktop smoke tests
+
+on:
+  pull_request:
+    paths:
+      - "crates/**"
+      - "python/pytaurix/**"
+      - "tests/pytaurix-test/**"
+      - "Cargo.lock"
+      - ".github/workflows/desktop-smoke.yml"
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  smoke:
+    name: ${{ matrix.os }} desktop smoke
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-14]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux WebView dependencies
+        if: matrix.os == 'ubuntu-22.04'
+        uses: ./.github/actions/setup-sys-deps
+      - name: Reject removed PyO3 APIs
+        run: python ./scripts/check_pyo3_029_migration.py
+      - name: Compile every production feature combination
+        run: cargo check --workspace --all-features --exclude pytaurix-test --locked
+      - name: Run the native IPC and lifecycle smoke suite
+        run: uv run --package pytaurix-test --no-dev cargo test -p pytaurix-test --features test --locked

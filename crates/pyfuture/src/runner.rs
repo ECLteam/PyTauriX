@@ -14,7 +14,7 @@ type Empty = ();
 
 #[derive(Debug)]
 struct PyRunner<T> {
-    inner: PyObject,
+    inner: Py<PyAny>,
     #[cfg(feature = "sync")]
     _alive_guard: OwnedRwLockWriteGuard<T>,
     #[cfg(not(feature = "sync"))]
@@ -38,7 +38,7 @@ pub struct Runner(RunnerInner);
 #[pymethods]
 impl Runner {
     #[new]
-    fn new(runner: PyObject) -> Self {
+    fn new(runner: Py<PyAny>) -> Self {
         #[cfg(feature = "sync")]
         {
             let alive_lock = Arc::new(RwLock::new(()));
@@ -72,7 +72,7 @@ impl Runner {
 }
 
 impl Runner {
-    pub fn try_future(&self, py: Python<'_>, awaitable: PyObject) -> Option<RustFuture> {
+    pub fn try_future(&self, py: Python<'_>, awaitable: Py<PyAny>) -> Option<RustFuture> {
         match &self.0 {
             RunnerInner::Alive { runner, .. } => {
                 let runner = runner.inner.clone_ref(py);
@@ -81,7 +81,7 @@ impl Runner {
             RunnerInner::Closed => None,
         }
     }
-    pub fn future(&self, py: Python<'_>, awaitable: PyObject) -> RustFuture {
+    pub fn future(&self, py: Python<'_>, awaitable: Py<PyAny>) -> RustFuture {
         self.try_future(py, awaitable)
             .expect("The runner is already closed")
     }

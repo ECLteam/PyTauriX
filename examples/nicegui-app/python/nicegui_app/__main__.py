@@ -4,7 +4,7 @@ import sys
 
 from nicegui_app import main
 
-# `True` means that running on pytauri standalone mode.
+# `True` means that running on pytaurix standalone mode.
 if getattr(sys, "frozen", False):  # noqa: SIM102
     # If `stderr` or `stdout` is None, it means `windows_subsystem = "windows"` on the Rust side,
     # so there is no console to output.

@@ -5,13 +5,13 @@ from os import getenv
 from setuptools import setup
 from setuptools_rust import RustExtension
 
-PYTAURI_STANDALONE = getenv("PYTAURI_STANDALONE") == "1"
-"""Instead of building pytauri as a extension module file, it will be loaded in memory through Rust's `append_ext_mod`"""
+PYTAURIX_STANDALONE = getenv("PYTAURIX_STANDALONE") == "1"
+"""Instead of building pytaurix as a extension module file, it will be loaded in memory through Rust's `append_ext_mod`"""
 
 setup(
     rust_extensions=[
         RustExtension(
-            # set `target` the same as `[project.entry-points.pytauri.ext_mod]` in `pyproject.toml`
+            # set `target` the same as `[project.entry-points.pytaurix.ext_mod]` in `pyproject.toml`
             target="nicegui_app.ext_mod",
             # It is recommended to set other features in `Cargo.toml`, except following features:
             features=[
@@ -24,6 +24,6 @@ setup(
             ],
         )
     ]
-    if not PYTAURI_STANDALONE
+    if not PYTAURIX_STANDALONE
     else [],
 )

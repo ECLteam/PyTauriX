@@ -1,10 +1,6 @@
-name: Publish rust crate to Crates.io 🦀
+name: Build internal Rust preview artifacts
 
 on:
-  push:
-    tags:
-      # e.g., rs/pyo3-utils/v0.1.0
-      - rs/*/v*
   workflow_dispatch:
     inputs:
       release_tag:
@@ -56,6 +52,7 @@ jobs:
           if-no-files-found: error
 
   publish:
+    if: ${{ false }} # Alpha releases must not reach public registries.
     needs:
       - dry-run
     name: Publish to Crates.io
@@ -79,6 +76,7 @@ jobs:
         run: python ./release.py --no-dry-run ${{ env.RELEASE_TAG }}
 
   github-release:
+    if: ${{ false }} # Internal preview artifacts remain workflow artifacts.
     needs:
       - publish
     name: Create GitHub release 🏷️

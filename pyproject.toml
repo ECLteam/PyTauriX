@@ -1,8 +1,8 @@
 [project]
-name = "pytauri-workspace"
+name = "pytaurix-workspace"
 version = "0.1.0"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 
 [dependency-groups]
 dev = [
@@ -63,15 +63,21 @@ workspaces = [
     "codelldb",
     "pyfuture",
     "pyo3-utils",
-    "pytauri",
-    "pytauri-wheel",
+    "pytaurix",
+    "pytaurix-wheel",
     # tests
-    "pytauri-test",
+    "pytaurix-test",
 ]
 # NOTE: when adding examples,
 # remember to update `[tool.uv.sources]` and `[tool.uv.workspace.members]`
 # and [tool.coverage.run.source] in `pyproject.toml`.
 examples = ["tauri-app", "nicegui-app", "tauri-app-wheel"]
+
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
 
 
 [tool.uv.sources]
@@ -81,9 +87,9 @@ tauri-app-wheel = { workspace = true }
 codelldb = { workspace = true }
 pyfuture = { workspace = true }
 pyo3-utils = { workspace = true }
-pytauri = { workspace = true }
-pytauri-wheel = { workspace = true }
-pytauri-test = { workspace = true }
+pytaurix = { workspace = true }
+pytaurix-wheel = { workspace = true }
+pytaurix-test = { workspace = true }
 
 # https://docs.astral.sh/uv/concepts/workspaces/
 [tool.uv.workspace]
@@ -92,14 +98,14 @@ members = [
     "examples/tauri-app/src-tauri",
     "examples/nicegui-app",
     "examples/tauri-app-wheel/python",
-    "tests/pytauri-test",
-    "python/pytauri-wheel",
+    "tests/pytaurix-test",
+    "python/pytaurix-wheel",
 ]
 
 
 [tool.pyright]
 typeCheckingMode = "strict"
-pythonVersion = "3.9"
+pythonVersion = "3.11"
 # see: <https://github.com/microsoft/pyright/blob/1.1.391/docs/configuration.md#environment-options>
 exclude = [
     "**/node_modules",
@@ -115,9 +121,8 @@ exclude = [
     "examples/**/frontend/",
 ]
 executionEnvironments = [
-    # TODO: We use the py310 `match` statement, but `requires-python >= 3.9`,
-    # so we must tell pyright that we target py310.
-    { root = "examples/nicegui-app", pythonVersion = "3.10" },
+    # Python 3.11 is the public support floor for PyTauriX.
+    { root = "examples/nicegui-app", pythonVersion = "3.11" },
 ]
 # TODO: temporary enable for PEP 728 <https://github.com/microsoft/pyright/issues/7232>
 enableExperimentalFeatures = true
@@ -184,7 +189,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"docs_src/**/*.py" = ["D"]
+"docs/snippets/**/*.py" = ["D"]
 "examples/**/*.py" = ["D"]
 "tests/**/*.py" = ["D"]
 
@@ -202,8 +207,8 @@ source = [
     "codelldb",
     "pyfuture",
     "pyo3_utils",
-    "pytauri",
-    "pytauri_wheel",
+    "pytaurix",
+    "pytaurix_wheel",
 ]
 
 # https://coverage.readthedocs.io/en/7.3.2/config.html#report

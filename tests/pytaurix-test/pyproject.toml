@@ -1,0 +1,17 @@
+[project]
+name = "pytaurix-test"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["pytaurix == 0.1.0a1", "pydantic == 2.*", "anyio == 4.*"]
+
+
+[build-system]
+requires = ["setuptools >= 80", "setuptools-scm >= 8"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = { where = ["python"] }
+
+
+[tool.uv.sources]
+pytaurix = { workspace = true }

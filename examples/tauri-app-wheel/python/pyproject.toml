@@ -2,13 +2,13 @@
 name = "tauri-app-wheel"
 version = "0.1.0"
 description = "Add your description here"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "pydantic == 2.*",
     "anyio == 4.*",
     # workspace members
-    "pytauri == 0.3.*",
-    "pytauri-wheel == 0.3.*",
+    "pytaurix == 0.1.0a1",
+    "pytaurix-wheel == 0.1.0a1",
 ]
 
 [project.scripts]
@@ -30,5 +30,5 @@ artifacts = ["src/tauri_app_wheel/frontend/"]
 
 
 [tool.uv.sources]
-pytauri = { workspace = true }
-pytauri-wheel = { workspace = true }
+pytaurix = { workspace = true }
+pytaurix-wheel = { workspace = true }

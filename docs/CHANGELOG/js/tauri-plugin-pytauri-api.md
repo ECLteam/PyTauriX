@@ -1,1 +1,0 @@
---8<-- "crates/tauri-plugin-pytauri/guest-js/CHANGELOG.md"

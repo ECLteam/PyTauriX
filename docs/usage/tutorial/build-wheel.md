@@ -37,7 +37,7 @@ Add the following configuration, which is the same as the configuration for `set
 [tool.maturin]
 # the same as [tool.setuptools.packages.find.where]
 python-source = "python"
-# the same as `[project.entry-points.pytauri.ext_mod]`,
+# the same as `[project.entry-points.pytaurix.ext_mod]`,
 # i.e., `target` in `setup.py`
 module-name = "tauri_app.ext_mod"
 # see `setup.py`
@@ -113,11 +113,11 @@ maturin build --release  # your maturin args
 you will get a wheel file named `*-cp39-abi3-*.whl`, which means that the wheel can run on `CPython >= 3.9`.
 
 !!! info
-    The `pytauri/standalone` feature is incompatible with the `pyo3/abi3` feature, which is why we only enable it in `[[bin]]` target.
+    The `pytaurix/standalone` feature is incompatible with the `pyo3/abi3` feature, which is why we only enable it in `[[bin]]` target.
 
-## What's `project.entry-points.pytauri` mean?
+## What's `project.entry-points.pytaurix` mean?
 
-Now it's time to explain [`[project.entry-points.pytauri]`](using-pytauri.md/#init-pyproject).
+Now it's time to explain [`[project.entry-points.pytaurix]`](using-pytaurix.md/#init-pyproject).
 
 Looking at the contents of the `.whl`, you will see the following structure:
 
@@ -136,6 +136,6 @@ We indicate the extension module `mod ext_mod` in `lib.rs` to be compiled into t
 - `pyproject.toml (maturin)`: `module-name = "tauri_app.ext_mod"`
 
 !!! Warning
-    `pytauri` does not have any opinion on where you place the extension module, but note that in `lib.rs` we specified the extension module name with `#[pyo3(name = "ext_mod")]`, so your extension module file name must match this name.
+    `pytaurix` does not have any opinion on where you place the extension module, but note that in `lib.rs` we specified the extension module name with `#[pyo3(name = "ext_mod")]`, so your extension module file name must match this name.
 
-Finally, we tell pytauri how to find it through `project.entry-points.pytauri.ext_mod = "tauri_app.ext_mod"` in `pyproject.toml`.
+Finally, we tell pytaurix how to find it through `project.entry-points.pytaurix.ext_mod = "tauri_app.ext_mod"` in `pyproject.toml`.

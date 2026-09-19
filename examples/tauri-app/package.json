@@ -12,7 +12,7 @@
   "dependencies": {
     "@tauri-apps/api": "catalog:",
     "@tauri-apps/plugin-opener": "catalog:",
-    "tauri-plugin-pytauri-api": "workspace:*"
+    "@pytaurix/api": "workspace:*"
   },
   "devDependencies": {
     "@tauri-apps/cli": "catalog:",
