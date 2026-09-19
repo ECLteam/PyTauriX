@@ -1,6 +1,5 @@
-<!-- The content will be also use in `docs/index.md` by `pymdownx.snippets` -->
-<!-- Do not use any **relative link** and  **GitHub-specific syntax** ！-->
-<!-- Do not rename or move the file -->
+<!-- 英文说明由 docs/en/index.md 通过 pymdownx.snippets 嵌入。 -->
+<!-- 请勿使用相对链接或 GitHub 专用 Markdown 语法。 -->
 
 # PyTauriX
 
@@ -24,7 +23,7 @@ Documentation: <https://eclteam.github.io/PyTauriX/en/>
 
 Source Code: <https://github.com/ECLteam/PyTauriX/>
 
-Fork attribution: see [UPSTREAM.md](https://github.com/ECLteam/PyTauriX/blob/main/UPSTREAM.md).
+Development lineage: see [UPSTREAM.md](https://github.com/ECLteam/PyTauriX/blob/main/UPSTREAM.md).
 
 [CI: docs]: https://github.com/ECLteam/PyTauriX/actions/workflows/docs.yml/badge.svg
 [CI: docs#link]: https://github.com/ECLteam/PyTauriX/actions/workflows/docs.yml
@@ -186,12 +185,6 @@ Although Rust's lifetime and ownership system makes Rust code safer, Python's ga
 [PyTorch]: https://github.com/pytorch/pytorch
 [nicegui]: https://github.com/zauberzeug/nicegui
 [gradio]: https://github.com/gradio-app/gradio
-
-## Used By
-
-Although PyTauriX is a fairly young project, a few people have used it to make cool projects:
-
-- [Digger Solo](https://solo.digger.lol/) - AI powered file manager
 
 ## Credits
 
