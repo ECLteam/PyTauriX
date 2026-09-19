@@ -3,10 +3,12 @@
 
 name: Lint check and test
 
-# We only automatically run checks for PRs.
-# It is best to avoid direct commits to the main branch, instead make a PR for checks.
+# PR 与主分支推送都必须执行检查；主分支是当前默认开发分支。
 on:
   pull_request:
+  push:
+    branches:
+      - main
   merge_group: # needed for merge queue
   workflow_dispatch:
   # NOTE: set `secrets: inherit` when call this workflow from other workflow.
@@ -32,8 +34,8 @@ jobs:
         with:
           predicate-quantifier: "every"
           # 👇 see: <https://github.com/PyO3/pyo3/pull/3212>
-          base: ${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}
-          ref: ${{ github.event.pull_request.head.ref || github.event.merge_group.head_ref }}
+          base: ${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref || github.event.before }}
+          ref: ${{ github.event.pull_request.head.ref || github.event.merge_group.head_ref || github.sha }}
           # 👆
           filters: |
             paths:
