@@ -56,7 +56,7 @@ tools = ["pre-commit ==4.2.0"]
 # remember to update:
 # - `preload_modules` in `mkdocs.yml`
 # - `[tool.coverage.run.source]` in `pyproject.toml`
-# - `scripts/python-verifytypes.sh`
+# - `scripts/python_verifytypes.py`
 # - `[tool.uv.workspace.members]` in `pyproject.toml`
 workspaces = [
     "codelldb",

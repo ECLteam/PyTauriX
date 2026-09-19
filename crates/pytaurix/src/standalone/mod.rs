@@ -168,11 +168,11 @@ impl PyConfig {
 
     /// Initialize the Python interpreter with the specified configuration.
     ///
-    /// - If the Python interpreter is already initialized (e.g, called [pyo3::prepare_freethreaded_python] before),
+    /// - If the Python interpreter is already initialized (e.g., called [Python::initialize] before),
     ///   this method will return an error.
     ///
     /// - After calling this method, the Python interpreter has already been initialized,
-    ///   and you dont need to call [pyo3::prepare_freethreaded_python] again (it's no-op).
+    ///   and you do not need to call [Python::initialize] again (it is a no-op).
     ///
     /// - If this function returns an error, the Python interpreter is not initialized.
     //
@@ -195,7 +195,7 @@ impl PyConfig {
         debug_assert_eq!(unsafe { pyffi::PyGILState_Check() }, 1);
 
         // We release the GIL so we can have pyo3's GIL handling take over from
-        // an "empty" state. This mirrors what pyo3's prepare_freethreaded_python() does.
+        // an "empty" state. This mirrors what `Python::initialize()` does.
         unsafe {
             pyffi::PyEval_SaveThread();
         }
@@ -458,7 +458,7 @@ where
     /// Build the Python interpreter.
     ///
     /// After calling this function, the Python interpreter is initialized.
-    /// And you don't need to call [pyo3::prepare_freethreaded_python] again (it's no-op).
+    /// And you do not need to call [Python::initialize] again (it is a no-op).
     ///
     /// NOTE: you can only build only one Python interpreter per process,
     /// or you will get a [NewInterpreterError].

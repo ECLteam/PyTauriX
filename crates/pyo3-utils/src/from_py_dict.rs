@@ -189,7 +189,7 @@ fn main() -> PyResult<()> {
         c,
     });
 
-    pyo3::prepare_freethreaded_python();
+    Python::initialize();
     Python::attach(|py| {
         // optional default `b`
         let dict_0 = [("a", 1)].into_py_dict(py)?;

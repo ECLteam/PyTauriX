@@ -118,6 +118,9 @@ jobs:
           # we don't need compile the extension files,
           # because we are not using it.
           PYTAURIX_STANDALONE: "1"
+          # This hook prevents developers from committing directly to main.
+          # CI validates main after a push, so it must not reject the checked-out branch.
+          SKIP: no-commit-to-branch
         run: |
           uv run --all-extras \
             -- pre-commit run --show-diff-on-failure --color=always --hook-stage=manual --all-files
