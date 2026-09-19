@@ -10,23 +10,21 @@ through [Pyo3].
 For the primary Chinese documentation, visit the
 [Chinese documentation portal].
 
-[Chinese documentation portal]: https://eclteam.github.io/PyTauriX/zh-CN/
+[Chinese documentation portal]: https://github.com/ECLteam/PyTauriX/tree/main/docs
 
 [Tauri]: https://github.com/tauri-apps/tauri
 [Pyo3]: https://github.com/PyO3/pyo3
 
 ---
 
-[![CI: docs]][CI: docs#link] [![msrv]][msrv#link] [![requires-python]][requires-python#link] [![Discord]][Discord#link]
+[![msrv]][msrv#link] [![requires-python]][requires-python#link] [![Discord]][Discord#link]
 
-Documentation: <https://eclteam.github.io/PyTauriX/en/>
+Documentation: <https://github.com/ECLteam/PyTauriX/tree/main/docs/en>
 
 Source Code: <https://github.com/ECLteam/PyTauriX/>
 
 Development lineage: see [UPSTREAM.md](https://github.com/ECLteam/PyTauriX/blob/main/UPSTREAM.md).
 
-[CI: docs]: https://github.com/ECLteam/PyTauriX/actions/workflows/docs.yml/badge.svg
-[CI: docs#link]: https://github.com/ECLteam/PyTauriX/actions/workflows/docs.yml
 [Discord]: https://img.shields.io/discord/1411349756202188942?logo=discord&label=discord
 [Discord#link]: https://discord.gg/TaXhVp7Shw
 [msrv]: https://img.shields.io/crates/msrv/pytaurix?logo=rust

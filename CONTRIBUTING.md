@@ -70,7 +70,7 @@ We use [pytest](https://docs.pytest.org/en/stable/) and `cargo test` to test our
 
 ### Python and Toturial
 
-We use [mkdocs](https://www.mkdocs.org), [mkdocs-material](https://squidfunk.github.io/mkdocs-material), [mkdocstrings](https://mkdocstrings.github.io) and [mike](https://github.com/jimporter/mike) to build our documentation.
+We use [mkdocs](https://www.mkdocs.org), [mkdocs-material](https://squidfunk.github.io/mkdocs-material) and [mkdocstrings](https://mkdocstrings.github.io) to build our documentation.
 
 The documentation source code is in `docs/`, `docs/snippets/`, `mkdocs.yml`, and `utils/` (check `mkdocs.yml` to find others).
 
@@ -78,12 +78,6 @@ Live-reloading main docs:
 
 ```bash
 mkdocs serve  # --dirty # 👈 optional to speed up hot-reload
-```
-
-Live-reloading versioned docs:
-
-```bash
-mike serve
 ```
 
 !!! tip "Docs references"
@@ -149,64 +143,6 @@ You can run these checks locally by executing `pre-commit run --all-files` in **
 
 ---
 
-## Deploy Docs
+## 发布与部署
 
-please refer to `.github/workflows/docs.yml`.
-
-- Every push to the `main` branch will trigger the `dev` version docs deployment.
-- Every `v*` semver tag will trigger the corresponding version docs deployment.
-
-    !!! warning
-        - Remember update `CHANGELOG.md` before pushing the version docs tag!
-        - Remember make a Github Release (not package release) manually for the version docs deployment!
-
-## PR Checks
-
-please refer to `.github/workflows/lint-test.yml`.
-
-- Every PR push will trigger the CI checks.
-
-## Publish and Release 🚀
-
-Please refer to `.github/workflows/publish-*.yml`.
-
-- Every `py|rs|js/package-name/v*` semver tag will trigger the corresponding package publish.
-
-First, check-out to a **new branch**, edit `CHANGELOG.md` to record the changes and bump the version.
-
-!!! warning
-    Remember also update the dependencies version for **workspace members**.
-
-Then, push the **new branch** with the **signed tag** to GitHub, and create a PR to the `main` branch.
-
-> Again, the tag must be **signed**!!!
-
-!!! warning
-    The `bump version` PR must have **only one commit with the corresponding tag**; otherwise, it will be rejected.
-
-Review the PR, if it's ok, **rebase** it to `main` branch **in local**.
-
-!!! warning "**DO NOT rebase with tag on GitHub.**"
-
-    Refer to:
-
-    > <https://docs.github.com/authentication/managing-commit-signature-verification/about-commit-signature-verification#signature-verification-for-rebase-and-merge>
-    >
-    > When you use this option, GitHub creates modified commits using the original commit data and content.
-
-    This will cause the commits merged into main to be inconsistent with the tagged commits.
-
-    If you unfortunately do this, you must delete the tag and re-tag the merged commit.
-
-Check if everything is ok, for example:
-
-- **check if the tag is on the `main` branch**.
-- **check if the version specified by the tag is correct**.
-- check if the dependencies version of workspace members are updated.
-- check if the link in `CHANGELOG.md` is correct.
-
-If so, make a `approve` in environment `pypi`/`crates-io`/`npmjs` for the workflow.
-
-After that, the `publish-*.yml` workflow will build and publish the package.
-
-Finally, edit the `draft release` created by `publish-*.yml` workflow, and publish the release.
+当前项目仅保留本地构建与验证流程；不配置自动文档部署、包发布或 GitHub Release 自动化。

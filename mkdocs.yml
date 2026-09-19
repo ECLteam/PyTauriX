@@ -1,6 +1,4 @@
 site_name: PyTauriX
-site_url: https://eclteam.github.io/PyTauriX/
-
 repo_url: https://github.com/ECLteam/PyTauriX/
 repo_name: ECLteam/PyTauriX
 
@@ -200,9 +198,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ECLteam/
-  # see: https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/
-  version:
-    provider: mike
 
 watch:
   - python/

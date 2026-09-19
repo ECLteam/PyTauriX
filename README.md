@@ -8,9 +8,9 @@ PyTauriX 是独立维护的 Python Tauri 桌面应用框架。它通过 [PyO3] �
 
 ## 文档与状态
 
-- [中文文档](https://eclteam.github.io/PyTauriX/)：项目主入口、使用说明与开发文档。
-- [英文文档](https://eclteam.github.io/PyTauriX/en/)：完整英文说明与 API 参考。
-- [能力清单与开发计划](https://eclteam.github.io/PyTauriX/roadmap/)
+- [中文文档](https://github.com/ECLteam/PyTauriX/tree/main/docs)：项目主入口、使用说明与开发文档。
+- [英文文档](https://github.com/ECLteam/PyTauriX/tree/main/docs/en)：完整英文说明与 API 参考。
+- [能力清单与开发计划](https://github.com/ECLteam/PyTauriX/blob/main/docs/roadmap.md)
 
 ## 项目结构
 
