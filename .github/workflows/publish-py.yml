@@ -38,13 +38,8 @@ jobs:
           - ubuntu-22.04-arm
           - windows-2022
           - windows-11-arm
-          - macos-13 # Intel
+          - macos-15-intel
           - macos-14 # arm64
-        exclude:
-          # Only Python >= 3.11 supports arm64 on Windows,
-          # see:
-          #   - <https://github.com/actions/setup-python/issues/715#issuecomment-2307075309>
-          #   - <https://github.com/astral-sh/python-build-standalone/pull/387#issuecomment-2818671913>
     outputs:
       package: ${{ steps.dry-run.outputs.package }}
     steps:
@@ -89,7 +84,8 @@ jobs:
           if-no-files-found: error
 
   publish-to-pypi:
-    if: ${{ false }} # Alpha releases must not reach public registries.
+    # 默认不发布；只有显式设置仓库变量才允许公共发布。
+    if: ${{ vars.PYTAURIX_PUBLIC_RELEASE == 'true' }}
     needs:
       - build-dist
     name: Publish Python 🐍 distribution 📦 to PyPI
@@ -113,7 +109,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
 
   github-release:
-    if: ${{ false }} # Internal preview artifacts remain workflow artifacts.
+    if: ${{ vars.PYTAURIX_PUBLIC_RELEASE == 'true' }}
     needs:
       - publish-to-pypi
     name: Create GitHub release 🏷️
