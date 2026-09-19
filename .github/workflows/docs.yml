@@ -58,7 +58,9 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: "pyproject.toml"
+          # Pillow 11.1.0 尚未提供 CPython 3.14 的预编译 wheel；文档构建
+          # 使用受支持且可复现的 3.13，完整发行矩阵仍单独覆盖 3.14。
+          python-version: "3.13"
       # see: <https://github.com/jimporter/mike/tree/v2.1.3?tab=readme-ov-file#deploying-via-ci>
       - name: Set git credentials
         run: |
