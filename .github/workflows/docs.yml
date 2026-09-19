@@ -64,7 +64,11 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git fetch origin gh-pages --depth=1
+          # 首次部署时 gh-pages 尚不存在；mike deploy --push 会创建该分支。
+          # 已存在时仅拉取其浅历史，以保留版本别名。
+          if git ls-remote --exit-code origin refs/heads/gh-pages; then
+            git fetch origin gh-pages --depth=1
+          fi
       - name: Deploy docs
         env:
           DOC_TAG: ${{ steps.version_tag.outputs.major && steps.version_tag.outputs.minor && format('{0}.{1} latest', steps.version_tag.outputs.major, steps.version_tag.outputs.minor) || 'dev' }}

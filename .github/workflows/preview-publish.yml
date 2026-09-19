@@ -1,10 +1,6 @@
-# refer to:
-#   - <https://github.com/stackblitz-labs/pkg.pr.new/tree/v0.0.43>
-#   - <https://github.com/vitejs/vite/blob/96f73d16c8501013be57aee1c8a2353a56460281/.github/workflows/preview-release.yml>
+name: Build JavaScript bridge
 
-name: JS packages preview publish
-
-# avoid publishing on tags: <https://github.com/stackblitz-labs/pkg.pr.new/tree/v0.0.43?tab=readme-ov-file#avoid-publishing-on-tags>
+# Alpha 阶段只验证桥接包可构建，不向第三方预览服务或公共注册表发布。
 on:
   pull_request:
   push:
@@ -42,8 +38,3 @@ jobs:
           pnpm --fail-if-no-match \
               -F ./crates/tauri-plugin-pytaurix/guest-js \
               build
-
-      - name: preview-publish
-        run: |
-          pnpm dlx pkg-pr-new publish --compact --pnpm \
-              ./crates/tauri-plugin-pytaurix/guest-js
