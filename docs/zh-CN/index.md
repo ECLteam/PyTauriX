@@ -25,6 +25,7 @@ Python 最低版本为 3.11。
 
 ## 文档导航
 
+- [核心能力清单](capability-matrix.md)
 - [Alpha 能力清单与发布门槛](../roadmap.md)
 - [从 PyTauri 0.8 迁移](../migration-from-pytauri-0.8.md)
 - [英文完整教程与 API 参考](../index.md)

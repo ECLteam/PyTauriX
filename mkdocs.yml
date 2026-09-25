@@ -228,6 +228,7 @@ nav:
   - 中文文档（推荐）:
       - 首页: index.md
       - zh-CN/index.md
+      - 核心能力清单: zh-CN/capability-matrix.md
   - English Documentation:
       - Overview: en/index.md
   - Usage:
