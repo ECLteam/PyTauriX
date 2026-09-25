@@ -325,7 +325,7 @@ pub fn builder_factory(
 enum FactoryError {
     PyErr(PyErr),
     /// (err, cause)
-    TauriError(PyErr, tauri::Error),
+    TauriError(PyErr, Box<tauri::Error>),
 }
 
 type FactoryResult<T> = Result<T, FactoryError>;
@@ -338,7 +338,7 @@ impl From<PyErr> for FactoryError {
 
 impl From<(PyErr, tauri::Error)> for FactoryError {
     fn from((err, cause): (PyErr, tauri::Error)) -> Self {
-        FactoryError::TauriError(err, cause)
+        FactoryError::TauriError(err, Box::new(cause))
     }
 }
 
@@ -348,7 +348,7 @@ impl FactoryError {
         match self {
             FactoryError::PyErr(err) => err,
             FactoryError::TauriError(err, cause) => {
-                err.set_cause(py, Some(PyErr::from(TauriError::from(cause))));
+                err.set_cause(py, Some(PyErr::from(TauriError::from(*cause))));
                 err
             }
         }
