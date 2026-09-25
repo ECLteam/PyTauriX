@@ -330,7 +330,6 @@ impl PythonInterpreterEnv<'_> {
         // 1. make sure that `sys.executable` is actually the python executable
         // 2. python can calculate other path such as `PyConfig.prefix`, from `PyConfig.executable`.
         //     ref: <https://github.com/python/cpython/blob/3.13/Modules/getpath.py>
-        let executable;
         // Normally we don't need to set `prefix` and `exec_prefix`:
         // - For `Venv`: python can rely on `pyvenv.cfg` to set it.
         //     see: <https://github.com/python/cpython/blob/a3797492179c249417a06d2499a7d535d453ac2c/Modules/getpath.py#L347-L403>
@@ -352,27 +351,24 @@ impl PythonInterpreterEnv<'_> {
         //     - On Windows, they are always the same: <https://github.com/python/cpython/blob/eed7865ceea83f56e46307c9dc78cb53526071f6/Modules/getpath.py#L608-L612>
         //     - On unix, the `python-build-standalone` has the [{prefix/}{PLATSTDLIB_LANDMARK}](https://github.com/python/cpython/blob/eed7865ceea83f56e46307c9dc78cb53526071f6/Modules/getpath.py#L617C9-L617C85),
         //       which indicates that `prefix` and `exec_prefix` are the same.
-        let home;
-        match self {
+        let (executable, home) = match self {
             PythonInterpreterEnv::Venv(dir) => {
-                executable = if cfg!(windows) {
+                let executable = if cfg!(windows) {
                     dir.join(r"Scripts\python.exe")
                 } else {
                     dir.join("bin/python3")
                 };
-
-                home = None;
+                (executable, None)
             }
             PythonInterpreterEnv::Standalone(dir) => {
-                executable = if cfg!(windows) {
+                let executable = if cfg!(windows) {
                     dir.join("python.exe")
                 } else {
                     dir.join("bin/python3")
                 };
-
-                home = Some(dir);
+                (executable, Some(dir))
             }
-        }
+        };
 
         config.set_executable(&executable)?;
         if let Some(home) = home {
