@@ -1,4 +1,3 @@
-<!-- The content will be also use in `docs/CHANGELOG/index.md` by `pymdownx.snippets` -->
 <!-- Do not use any **relative link** and  **GitHub-specific syntax** ！-->
 <!-- Do not rename or move the file -->
 

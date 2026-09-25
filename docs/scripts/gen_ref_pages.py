@@ -1,14 +1,14 @@
-"""Generate the code reference pages and navigation.
+"""生成 Python API 参考页与导航。
 
-Copy form: https://mkdocstrings.github.io/recipes/
+参考：https://mkdocstrings.github.io/recipes/
 
-NOTE: Keep the following directory structure:
+目录结构：
 
 📁 repo/
 ├── 📁 docs/
-│   └── 📄 index.md
-├── 📁 utils/
-│   └── 📄 gen_ref_pages.py
+│   ├── 📄 index.md
+│   └── 📁 scripts/
+│       └── 📄 gen_ref_pages.py
 ├── 📁 python/
 │   ├── 📁 pure-py/
 │   │   ├── 📄 pyproject.toml
@@ -32,7 +32,7 @@ from pathlib import Path
 import mkdocs_gen_files
 
 # i.e., the root directory of the repository.
-ROOT = Path(__file__).parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 
 # Don't change the name "reference/py",
 # it's also used in `mkdocs.yml`.

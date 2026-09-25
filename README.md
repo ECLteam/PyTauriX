@@ -9,15 +9,16 @@ PyTauriX 是独立维护的 Python Tauri 桌面应用框架。它通过 [PyO3] �
 ## 文档与状态
 
 - [中文文档](https://github.com/ECLteam/PyTauriX/tree/main/docs)：项目主入口、使用说明与开发文档。
-- [英文文档](https://github.com/ECLteam/PyTauriX/tree/main/docs/en)：完整英文说明与 API 参考。
+- [英文文档](https://github.com/ECLteam/PyTauriX/tree/main/docs/en)：英文入口；教程和 API 参考位于 `docs/usage/` 与 `docs/reference/`。
 - [能力清单与开发计划](https://github.com/ECLteam/PyTauriX/blob/main/docs/roadmap.md)
 
 ## 项目结构
 
 - `crates/`：Rust 组件、Tauri 插件和底层绑定。
 - `python/`：Python 发行包与构建工具。
-- `docs/`：中英文文档；`docs/snippets/` 仅保存文档嵌入的示例片段。
+- `docs/`：中英文文档、文档示例片段与本地 API 参考生成器。
 - `examples/`：可独立运行的应用示例。
+- `scripts/`：开发检查与测试入口。
 - `tests/`：跨 Python、Rust 与 Tauri 的集成测试。
 
 ## 开始使用

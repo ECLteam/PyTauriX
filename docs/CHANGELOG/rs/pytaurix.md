@@ -1,1 +1,0 @@
---8<-- "crates/pytaurix/CHANGELOG.md"

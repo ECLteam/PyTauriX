@@ -1,4 +1,3 @@
-<!-- The content will be also use in `docs/CONTRIBUTING/CONTRIBUTING.md` by `pymdownx.snippets` -->
 <!-- Do not use any **relative link** and  **GitHub-specific syntax** ！-->
 <!-- Do not rename or move the file -->
 
@@ -72,7 +71,7 @@ We use [pytest](https://docs.pytest.org/en/stable/) and `cargo test` to test our
 
 We use [mkdocs](https://www.mkdocs.org), [mkdocs-material](https://squidfunk.github.io/mkdocs-material) and [mkdocstrings](https://mkdocstrings.github.io) to build our documentation.
 
-The documentation source code is in `docs/`, `docs/snippets/`, `mkdocs.yml`, and `utils/` (check `mkdocs.yml` to find others).
+The documentation source code is in `docs/`, `docs/snippets/`, `docs/scripts/`, and `mkdocs.yml`.
 
 Live-reloading main docs:
 

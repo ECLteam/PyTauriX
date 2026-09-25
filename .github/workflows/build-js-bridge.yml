@@ -1,6 +1,6 @@
 name: Build JavaScript bridge
 
-# Alpha 阶段只验证桥接包可构建，不向第三方预览服务或公共注册表发布。
+# 验证桥接包在当前工作区可构建。
 on:
   pull_request:
   push:

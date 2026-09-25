@@ -113,10 +113,10 @@ plugins:
   - search
   - gen-files:
       scripts:
-        - utils/gen_ref_pages.py
+        - docs/scripts/gen_ref_pages.py
   # see: <https://mkdocstrings.github.io/recipes/#generate-a-literate-navigation-file>
   - literate-nav:
-      # DO NOT change `SUMMARY.md`, it's used in `utils/gen_ref_pages.py`
+      # DO NOT change `SUMMARY.md`, it's used in `docs/scripts/gen_ref_pages.py`
       nav_file: SUMMARY.md
   - section-index
   - mkdocstrings:
@@ -223,7 +223,7 @@ validation:
   unrecognized_links: warn
 
 # Don't change the name "reference/"
-# It's used in utils/gen_ref_pages.py
+# It's used in docs/scripts/gen_ref_pages.py
 nav:
   - 中文文档（推荐）:
       - 首页: index.md
@@ -259,25 +259,7 @@ nav:
       - Alpha Roadmap: roadmap.md
   - API Reference:
       # NOTE:
-      # - DO NOT change `reference/py/`, it's also used in `utils/gen_ref_pages.py`.
+      # - DO NOT change `reference/py/`, it's also used in `docs/scripts/gen_ref_pages.py`.
       # - Note the trailing slash! see `mkdocs-literate-nav` docs.
       - py: reference/py/
       - rs: reference/rs.md
-  - Contributing:
-      - CONTRIBUTING/index.md
-  - Changelog:
-      - CHANGELOG/index.md
-      # NOTE: must set the title for the first item, or it will be considered as `index`.
-      # see: <https://github.com/oprypin/mkdocs-section-index/issues/6#issuecomment-914666358>
-      - py:
-          - pytaurix: CHANGELOG/py/pytaurix.md
-          - pytaurix-wheel: CHANGELOG/py/pytaurix-wheel.md
-          - pyo3-utils: CHANGELOG/py/pyo3-utils.md
-          - codelldb: CHANGELOG/py/codelldb.md
-      - rs:
-          - pytaurix: CHANGELOG/rs/pytaurix.md
-          - pytaurix-core: CHANGELOG/rs/pytaurix-core.md
-          - tauri-plugin-pytaurix: CHANGELOG/rs/tauri-plugin-pytaurix.md
-          - pyo3-utils: CHANGELOG/rs/pyo3-utils.md
-      - js:
-          - "@pytaurix/api": CHANGELOG/js/tauri-plugin-pytaurix-api.md
