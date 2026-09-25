@@ -5,7 +5,7 @@ use tauri::Listener as _;
 
 use crate::{
     ext_mod::{manager_method_impl, Event, EventId, ImplManager},
-    utils::PyResultExt as _,
+    utils::report_unraisable_py_result,
 };
 
 /// The Implementers of [tauri::Listener].
@@ -26,9 +26,7 @@ impl Listener {
                 };
                 let pyobj = pyobj.bind(py);
                 let result = pyobj.call1((event,));
-                result.unwrap_unraisable_py_result(py, Some(pyobj), || {
-                    "Python exception occurred in `Listener` handler"
-                });
+                report_unraisable_py_result(result, py, Some(pyobj));
             })
         }
     }

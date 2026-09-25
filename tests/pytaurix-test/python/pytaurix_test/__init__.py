@@ -1,4 +1,5 @@
 import json
+import sys
 from collections.abc import Iterator
 from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -16,6 +17,7 @@ from pytaurix import (
     Emitter,
     Event,
     Listener,
+    Manager,
     builder_factory,
     context_factory,
 )
@@ -113,6 +115,67 @@ def test_event_system():
 
 
 test_event_system()
+
+
+class _ManagedState:
+    pass
+
+
+class _MissingState:
+    pass
+
+
+def test_state_management():
+    with app_handle_fixture() as app_handle:
+        state = _ManagedState()
+        assert Manager.manage(app_handle, state)
+        assert Manager.state(app_handle, _ManagedState) is state
+        assert not Manager.manage(app_handle, _ManagedState())
+        assert Manager.try_state(app_handle, _MissingState) is None
+
+        missing_state_error: ValueError | None = None
+        try:
+            Manager.state(app_handle, _MissingState)
+        except ValueError as error:
+            missing_state_error = error
+        if missing_state_error is None:
+            raise AssertionError("state() must fail if the state was not managed")
+        assert "manage()" in str(missing_state_error)
+
+
+test_state_management()
+
+
+def test_event_listener_lifecycle_and_callback_errors():
+    event_name = "listener-lifecycle"
+    with app_handle_fixture() as app_handle:
+        received: list[Event] = []
+        event_id = Listener.listen(app_handle, event_name, received.append)
+        Emitter.emit(app_handle, event_name, Pong("pong"))
+        assert len(received) == 1
+        assert received[0].id == event_id
+
+        Listener.unlisten(app_handle, event_id)
+        Emitter.emit(app_handle, event_name, Pong("pong"))
+        assert len(received) == 1
+
+        reported: list[object] = []
+        previous_hook = sys.unraisablehook
+
+        def capture_unraisable(args: object) -> None:
+            reported.append(args)
+
+        def failing_handler(_event: Event) -> None:
+            raise RuntimeError("listener callback failure")
+
+        sys.unraisablehook = capture_unraisable
+        try:
+            Listener.listen(app_handle, event_name, failing_handler)
+            Emitter.emit(app_handle, event_name, Pong("pong"))
+        finally:
+            sys.unraisablehook = previous_hook
+
+        assert len(reported) == 1
 
 
 def test_store_api():

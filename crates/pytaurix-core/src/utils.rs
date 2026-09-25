@@ -75,6 +75,18 @@ pub(crate) trait PyResultExt {
         M: Any + Send + 'static;
 }
 
+/// Reports an exception raised by a Python callback without unwinding through
+/// a Tauri callback boundary.
+pub(crate) fn report_unraisable_py_result<T>(
+    result: PyResult<T>,
+    py: Python<'_>,
+    obj: Option<&Bound<'_, PyAny>>,
+) {
+    if let Err(err) = result {
+        err.write_unraisable(py, obj);
+    }
+}
+
 impl<T> PyResultExt for PyResult<T> {
     type Output = T;
 
