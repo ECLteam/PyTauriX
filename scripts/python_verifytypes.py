@@ -18,9 +18,18 @@ PACKAGES = (
 def main() -> int:
     """用 Pyright 逐一验证公开包的类型信息。"""
     pnpm = "pnpm.cmd" if sys.platform == "win32" else "pnpm"
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     for package in PACKAGES:
         if subprocess.run(
-            [pnpm, "pyright", "--verifytypes", package, "--ignoreexternal"],
+            [
+                pnpm,
+                "pyright",
+                "--pythonversion",
+                python_version,
+                "--verifytypes",
+                package,
+                "--ignoreexternal",
+            ],
             check=False,
         ).returncode:
             return 1

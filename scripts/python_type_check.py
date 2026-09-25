@@ -7,9 +7,12 @@ import sys
 
 
 def main() -> int:
-    """在当前 uv 虚拟环境中运行 Pyright。"""
+    """按当前解释器版本运行 Pyright，避免误判新版标准库语法。"""
     pnpm = "pnpm.cmd" if sys.platform == "win32" else "pnpm"
-    return subprocess.run([pnpm, "pyright", "."], check=False).returncode
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    return subprocess.run(
+        [pnpm, "pyright", "--pythonversion", python_version, "."], check=False
+    ).returncode
 
 
 if __name__ == "__main__":
